@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const logger = require("morgan");
 const mainRoutes = require("./routes/main");
 const itemRoutes = require("./routes/item");
+const flipRoutes = require("./routes/flip");
 
 //Connect To MongoDB Database
 connectDB();
@@ -30,6 +31,7 @@ app.use(express.json())
 //Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
 app.use("/item", itemRoutes);
+app.use("/flip", flipRoutes);
 
 //Server running
 app.listen(process.env.PORT, () => {

@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const homeController = require("../controllers/home");
+const flipController = require("../controllers/flip");
 
 //Main Routes 
-router.get("/", homeController.getIndex);
+router.get("/", flipController.getIndex);
 
 
 module.exports = router;

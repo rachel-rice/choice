@@ -87,3 +87,21 @@
   #carousel img.active {
     display: block; /* Show active image */
   }
+
+  /* Coin flip styling */
+
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: 50px;
+}
+
+img {
+    width: 150px;
+    cursor: pointer;
+}
+
+#result {
+    font-size: 24px;
+    margin-top: 20px;
+}
