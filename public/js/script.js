@@ -62,19 +62,47 @@ function startCarousel() {
 
   // coin flip
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const coin = document.getElementById("coin");
-    const resultText = document.getElementById("result");
+//   document.addEventListener("DOMContentLoaded", function() {
+//     const coin = document.getElementById("coin");
+//     const resultText = document.getElementById("result");
 
-    coin.addEventListener("click", function() {
-        const isHeads = Math.random() < 0.5; // 50% chance
+//     coin.addEventListener("click", function() {
+//         const isHeads = Math.random() < 0.5; // 50% chance
 
-        if (isHeads) {
-            coin.src = "heads.png"; // Need to replace with actual image paths
-            resultText.textContent = "Heads!";
-        } else {
-            coin.src = "tails.png";
-            resultText.textContent = "Tails!";
-        }
-    });
+//         if (isHeads) {
+//             coin.src = "heads.png"; // Need to replace with actual image paths
+//             resultText.textContent = "Heads!";
+//         } else {
+//             coin.src = "tails.png";
+//             resultText.textContent = "Tails!";
+//         }
+//     });
+// });
+
+// coin flip animation
+
+document.addEventListener("DOMContentLoaded", function() {
+  const coin = document.getElementById("coin");
+  const resultText = document.getElementById("result");
+
+  coin.addEventListener("click", function() {
+      // Add the spinning animation
+      coin.classList.add("spin");
+
+      // Wait for the animation to finish before changing the image
+      setTimeout(() => {
+          const isHeads = Math.random() < 0.5; // 50% chance
+
+          if (isHeads) {
+              coin.src = "/img/heads.png"; // Replace with actual image paths
+              resultText.textContent = "Heads!";
+          } else {
+              coin.src = "tails.png";
+              resultText.textContent = "Tails!";
+          }
+
+          // Remove animation class after the flip
+          coin.classList.remove("spin");
+      }, 300); // Halfway through the animation (to make the flip look natural)
+  });
 });
