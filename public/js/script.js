@@ -94,10 +94,10 @@ document.addEventListener("DOMContentLoaded", function() {
           const isHeads = Math.random() < 0.5; // 50% chance
 
           if (isHeads) {
-              coin.src = "/img/heads.png"; // Replace with actual image paths
+              coin.src = "img/heads.png"; // Replace with actual image paths
               resultText.textContent = "Heads!";
           } else {
-              coin.src = "tails.png";
+              coin.src = "img/tails.png";
               resultText.textContent = "Tails!";
           }
 
