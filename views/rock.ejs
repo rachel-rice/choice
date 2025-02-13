@@ -11,7 +11,47 @@
         <%- include('./partials/header') %>
         <h1>Rock, Paper, Scissors</h1>
     </header>
+    <main>
+        <section>
+            <h2>Play the Game</h2>
+            <p>Choose rock, paper, or scissors to play against the computer.</p>
+            <form action="/rock" method="POST">
+                <label for="choice">Your Choice:</label>
+                <select name="choice" id="choice">
+                    <option value="rock">Rock</option>
+                    <option value="paper">Paper</option>
+                    <option value="scissors">Scissors</option>
+                </select>
+                <button type="submit">Play</button>
+            </form>
+        </section>
 
+        <% if (result) { %>
+            <section>
+                <h2>Game Result</h2>
+                <p><strong>Your Choice:</strong> <%= playerChoice %></p>
+                <p><strong>Computer's Choice:</strong> <%= computerChoice %></p>
+                <p><strong>Result:</strong> You <%= result %>!</p>
+            </section>
+        <% } %>
+
+        <% if (error) { %>
+            <section>
+                <h2>Error</h2>
+                <p><%= error %></p>
+            </section>
+        <% } %>
+    </main>
+    <!-- <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <button class="choice" id="rock">🪨 Rock</button>
+            <button class="choice" id="paper">📜 Paper</button>
+            <button class="choice" id="scissors">✂️ Scissors</button>
+        </div>
+        <p id="result"></p>
+        <p id="score">Player: 0 | Computer: 0</p>
+    </div> -->
     
    
  

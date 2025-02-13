@@ -4,6 +4,6 @@ const rockController = require("../controllers/rock");
 
 
 router.get("/", rockController.getIndex);
-
+router.post("/", rockController.playGame);
 
 module.exports = router;

@@ -106,3 +106,56 @@ document.addEventListener("DOMContentLoaded", function() {
       }, 300); // Halfway through the animation (to make the flip look natural)
   });
 });
+
+
+// Rock Paper Scissors
+
+document.addEventListener('DOMContentLoaded', () => {
+  const choices = document.querySelectorAll('.choice');
+  const resultDisplay = document.getElementById('result');
+  const scoreDisplay = document.getElementById('score');
+  let playerScore = 0;
+  let computerScore = 0;
+
+  choices.forEach(choice => {
+      choice.addEventListener('click', () => {
+          const playerChoice = choice.id;
+          const computerChoice = getComputerChoice();
+          const result = getResult(userChoice, computerChoice);
+
+          resultDisplay.textContent = `You chose ${playerChoice}, computer chose ${computerChoice}. ${result}`;
+          updateScore(result);
+          scoreDisplay.textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
+      });
+  });
+
+  function getComputerChoice() {
+      const choices = ['rock', 'paper', 'scissors'];
+      const randomIndex = Math.floor(Math.random() * choices.length);
+      return choices[randomIndex];
+  }
+
+  function getResult(userChoice, computerChoice) {
+      if (playerChoice === computerChoice) {
+          return 'It\'s a draw!';
+      } else if (
+          (playerChoice === 'rock' && computerChoice === 'scissors') ||
+          (playerChoice === 'paper' && computerChoice === 'rock') ||
+          (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+          playerScore++;
+          return 'You win!';
+      } else {
+          computerScore++;
+          return 'You lose!';
+      }
+  }
+
+  function updateScore(result) {
+      if (result === 'You win!') {
+          playerScore++;
+      } else if (result === 'You lose!') {
+          computerScore++;
+      }
+  }
+});
