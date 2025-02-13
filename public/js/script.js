@@ -60,24 +60,6 @@ function startCarousel() {
     }
   }
 
-  // coin flip
-
-//   document.addEventListener("DOMContentLoaded", function() {
-//     const coin = document.getElementById("coin");
-//     const resultText = document.getElementById("result");
-
-//     coin.addEventListener("click", function() {
-//         const isHeads = Math.random() < 0.5; // 50% chance
-
-//         if (isHeads) {
-//             coin.src = "heads.png"; // Need to replace with actual image paths
-//             resultText.textContent = "Heads!";
-//         } else {
-//             coin.src = "tails.png";
-//             resultText.textContent = "Tails!";
-//         }
-//     });
-// });
 
 // coin flip animation
 
