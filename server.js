@@ -7,6 +7,7 @@ const logger = require("morgan");
 const mainRoutes = require("./routes/main");
 const itemRoutes = require("./routes/item");
 const flipRoutes = require("./routes/flip");
+const rockRoutes = require("./routes/rock");
 
 //Connect To MongoDB Database
 connectDB();
@@ -32,6 +33,7 @@ app.use(express.json())
 app.use("/", mainRoutes);
 app.use("/item", itemRoutes);
 app.use("/flip", flipRoutes);
+app.use("/rock", rockRoutes);
 
 //Server running
 app.listen(process.env.PORT, () => {
