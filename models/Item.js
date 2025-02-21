@@ -6,8 +6,11 @@ const ItemSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: String,
-        required: true
+        type: String
+    },
+    list: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'List', // reference to parent list
+        // required: true
     }
 })
 
