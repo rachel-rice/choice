@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lists.</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <%- include('./partials/header') %>
+        <h1>List Page</h1>
+    </header>
+
+    <!--Create-->
+
+    <form id="createForm" action="/list/add" method="POST"> 
+        <input type="text" name="name" placeholder="List name" required>
+        <input type="text" name="description" placeholder="List description" required>
+        <button type="submit">Create List</button>
+    </form>
+
+   <!--Update-->
+
+    <form id="updateForm" action="/list/update/:id" method="POST">
+        <input type="hidden" name="_id" id="updateId"> <!--Bundle ID with the form data-->
+        <input type="text" name="name" id="updateName" placeholder="New list name" required>
+        <input type="text" name="description" id="updateDescription" placeholder="New list description" required>
+        <button type="submit">Update List</button>
+    </form>
+
+ <!-- Display items -->
+    <ul id="itemList">
+        <% lists.forEach((list) => { %>
+            <li>
+                <span><%= list.name %> : <%= list.description %></span>
+                <button onClick="editItem('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')">Edit</button>
+                <button onClick="deleteList('<%= list._id %>')">Delete</button>
+            </li>
+        <% }); %>
+    </ul>
+
+    <script src="/js/script.js"></script>
+
+</body>
+</html>

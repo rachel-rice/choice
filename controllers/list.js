@@ -1,44 +1,85 @@
 const List = require("../models/List");
+const Item = require('../models/Item');
 
 module.exports = {
-    getLists: async (req, res) => {
+    // Get all lists with their items
+    getAllLists: async (req, res) => {
         try {
-            const items = await List.find({});
+            const lists = await List.find().populate('items');
             res.render('list', { lists });
         } catch (err) {
             console.error(err);
             res.status(500).send("Server Error");
         }
     },
-    addList: async (req, res) => {
+
+    // Get a single list by ID
+    getListById: async (req, res) => {
         try {
-            const newList = new List(req.body);
-            await newList.save();
-            res.redirect('/list');
+            const list = await List.findById(req.params.id).populate('items');
+            res.render('list', { list });
         } catch (err) {
             console.error(err);
-            res.redirect('/item?error=true');
+            res.status(500).send('Server Error');
         }
     },
-    updateList: async (req, res) => {
-        const { id } = req.params;
-        const { name, description } = req.body;
+
+     // Update a list by ID
+     updateList: async (req, res) => {
         try {
-            await List.findByIdAndUpdate(id, { name, description });
-            res.redirect('/list');
+            const { name, description } = req.body;
+            await List.findByIdAndUpdate(req.params.id, { name, description });
+            res.redirect('/lists');
         } catch (err) {
             console.error(err);
-            res.redirect('/list?error=true');
+            res.status(500).send('Server Error');
         }
     },
+
+    // Delete a list by ID
     deleteList: async (req, res) => {
-        const { id } = req.params;
         try {
-            await List.findByIdAndDelete(id);
-            res.status(200).json({ message: 'List deleted successfully' });
+            const list = await List.findById(req.params.id);
+            if (list) {
+                await Item.deleteMany({ list: list._id });
+                await List.findByIdAndDelete(req.params.id);
+            }
+            res.redirect('/lists');
         } catch (err) {
             console.error(err);
-            res.redirect('/list?error=true');
+            res.status(500).send('Server Error');
         }
-    }
+    },
+
+//     addList: async (req, res) => {
+//         try {
+//             const newList = new List(req.body);
+//             await newList.save();
+//             res.redirect('/list');
+//         } catch (err) {
+//             console.error(err);
+//             res.redirect('/item?error=true');
+//         }
+//     },
+//     updateList: async (req, res) => {
+//         const { id } = req.params;
+//         const { name, description } = req.body;
+//         try {
+//             await List.findByIdAndUpdate(id, { name, description });
+//             res.redirect('/list');
+//         } catch (err) {
+//             console.error(err);
+//             res.redirect('/list?error=true');
+//         }
+//     },
+//     deleteList: async (req, res) => {
+//         const { id } = req.params;
+//         try {
+//             await List.findByIdAndDelete(id);
+//             res.redirect('/list');
+//         } catch (err) {
+//             console.error(err);
+//             res.redirect('/list?error=true');
+//         }
+//     }
 };
