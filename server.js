@@ -8,6 +8,7 @@ const mainRoutes = require("./routes/main");
 const itemRoutes = require("./routes/item");
 const flipRoutes = require("./routes/flip");
 const rockRoutes = require("./routes/rock");
+const listRoutes = require("./routes/list");
 
 //Connect To MongoDB Database
 connectDB();
