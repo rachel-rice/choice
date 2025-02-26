@@ -1,14 +1,15 @@
 const express = require('express');
-const app = express();
 const connectDB = require("./config/database");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const logger = require("morgan");
 const mainRoutes = require("./routes/main");
-const itemRoutes = require("./routes/item");
+const itemRoutes = require("./routes/items");
 const flipRoutes = require("./routes/flip");
 const rockRoutes = require("./routes/rock");
-const listRoutes = require("./routes/list");
+const listRoutes = require("./routes/lists");
+
+const app = express();
 
 //Connect To MongoDB Database
 connectDB();
