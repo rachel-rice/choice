@@ -1,7 +1,8 @@
 const express = require('express');
 const connectDB = require("./config/database");
-const cors = require('cors');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+const cors = require('cors');
 const logger = require("morgan");
 const mainRoutes = require("./routes/main");
 const itemRoutes = require("./routes/items");
@@ -26,6 +27,9 @@ app.use(logger("dev"));
 //Serve static folder
 app.use(express.static('public'));
 
+// Method Override for PUT and DELETE requests
+app.use(methodOverride('_method'));
+
 //Body parsing - parse results
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -33,7 +37,8 @@ app.use(express.json())
 
 //Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
-app.use("/item", itemRoutes);
+app.use("/items", itemRoutes);
+app.use("/lists", listRoutes);
 app.use("/flip", flipRoutes);
 app.use("/rock", rockRoutes);
 

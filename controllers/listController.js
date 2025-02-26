@@ -6,7 +6,7 @@ module.exports = {
     getAllLists: async (req, res) => {
         try {
             const lists = await List.find().populate('items');
-            res.render('index ', { lists });
+            res.render('list ', { lists });
         } catch (err) {
             console.error(err);
             res.status(500).send("Server Error");
