@@ -6,7 +6,7 @@ module.exports = {
     getAllLists: async (req, res) => {
         try {
             const lists = await List.find().populate('items');
-            res.render('list', { lists });
+            res.render('index ', { lists });
         } catch (err) {
             console.error(err);
             res.status(500).send("Server Error");
@@ -18,6 +18,18 @@ module.exports = {
         try {
             const list = await List.findById(req.params.id).populate('items');
             res.render('list', { list });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
+    },
+
+    // Create a new list
+    createList: async (req, res) => {
+        try {
+            const { name, description } = req.body;
+            await List.create({ name, description, items: [] });
+            res.redirect('/lists');
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
