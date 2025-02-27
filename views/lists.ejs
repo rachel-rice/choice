@@ -12,24 +12,25 @@
         <h1>List Page</h1>
     </header>
 
+
     <!--Create-->
 
-    <form id="createForm" action="/list/add" method="POST"> 
+    <form id="createForm" action="/lists/add" method="POST"> 
         <input type="text" name="name" placeholder="List name" required>
         <input type="text" name="description" placeholder="List description" required>
         <button type="submit">Create List</button>
     </form>
 
-   <!--Update-->
+    <!--Update-->
 
-    <form id="updateForm" action="/list/update/:id" method="POST">
+    <form id="updateForm" action="/lists/update/:id" method="POST">
         <input type="hidden" name="_id" id="updateId"> <!--Bundle ID with the form data-->
         <input type="text" name="name" id="updateName" placeholder="New list name" required>
         <input type="text" name="description" id="updateDescription" placeholder="New list description" required>
         <button type="submit">Update List</button>
     </form>
 
- <!-- Display items -->
+    <!-- Display lists -->
     <ul id="itemList">
         <% lists.forEach((list) => { %>
             <li>
