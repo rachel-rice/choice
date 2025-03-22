@@ -11,6 +11,12 @@
     <header>
         <%- include('./partials/header') %>
     </header>
+
+    <section id="why-kittens">
+        <h2></h2>
+        <p>Feeling indecisive? We've got you covered. Choice is the ultimate decision-making web app designed for those moments when you just can't choose. Whether it's a simple coin flip, a quick game of rock-paper-scissors, or a randomized option picker, we take the stress out of choosing so you can move forward with confidence.</p>
+    </section>
+    
     <!-- Photo Carousel -->
     <div id="carousel">
         <img src="/img/coins.jpg" class="active">
@@ -19,18 +25,19 @@
     <!-- Add more images as needed -->
     </div>
 
-    <section id="why-kittens">
-        <h2>Can't decide?</h2>
-        <p>We have multiple options to help you make those hard descisions. From our random picker, and coin flips, we have options to help you make those tough decsions.</p>
-    </section>
+  
     
     <section id="offer">
-        <h2>Random Choice</h2>
+        <h2>How it Works</h2>
         <ul>
-          <li>Make a list of choices and the randomizer will pick for you.</li>
-          <li>Save favorite lists for recurring descisions, such as the classic "Where are we going to eat?"</li>
-          <li>Another description here</li>
+          <li><strong>Flip a Coin</strong> - The classic tiebreaker for yes/no decisions.</li>
+          <li><strong>Rock, Paper, Scissors</strong> - Settle disputes with a digital game.</li>
+          <li><strong>Randomized Option Picker</strong> - List your choices, and we'll pick one for you.</li>
         </ul>
+
+        <p>No more overthinking. No more endless debates. Just quick, easy decisions—made for you.</p>
+
+            <p>Ready to let fate decide? Try Choice now!</p>
     </section>
     
     <section id="latest-posts">
@@ -60,9 +67,7 @@
     </section>
     
     <footer>
-        <h2>Contact Us</h2>
-        <p>Got questions? We've got answers! Reach out to us at <a href="mailto:email@example.com">email@example.com</a> or call us at (555) KIT-TENS.</p>
-        <p>🐾 <strong>Thank you for visiting KittenLand!</strong> 🐾</p>
+        <%- include('./partials/footer') %>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
