@@ -89,22 +89,15 @@
   }
 
   /* Coin flip styling */
-
-  /* body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    margin-top: 50px;
-}
-
-img {
-    width: 150px;
+  /* .coin {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('coins.png');
+    background-size: cover;
     cursor: pointer;
-}
-
-#result {
-    font-size: 24px;
-    margin-top: 20px;
-} */
+    transition: transform 0.6s ease-in-out;
+  } */
 
 body {
   text-align: center;

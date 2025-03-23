@@ -16,6 +16,15 @@
             <h2>Play the Game</h2>
             <p>Choose rock, paper, or scissors to play against the computer.</p>
             <form action="/rock" method="POST">
+                <button type="submit" name="choice" value="rock">🪨 Rock</button>
+                <button type="submit" name="choice" value="paper">📄 Paper</button>
+                <button type="submit" name="choice" value="scissors">✂️ Scissors</button>
+            </form>
+        </section>
+        <!-- <section>
+            <h2>Play the Game</h2>
+            <p>Choose rock, paper, or scissors to play against the computer.</p>
+            <form action="/rock" method="POST">
                 <label for="choice">Your Choice:</label>
                 <select name="choice" id="choice">
                     <option value="rock">Rock</option>
@@ -24,7 +33,7 @@
                 </select>
                 <button type="submit">Play</button>
             </form>
-        </section>
+        </section> -->
 
         <% if (result) { %>
             <section>
