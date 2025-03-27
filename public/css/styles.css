@@ -1,29 +1,29 @@
 /* Navbar styling */
-.navbar {
+/* .navbar {
     background-color: #333;
     overflow: hidden;
-  }
+  } */
   
   /* Navbar list */
-  .nav-list {
+  /* .nav-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
-  }
+  } */
   
   /* Navbar items */
-  .nav-item {
+  /* .nav-item {
     float: left;
-  }
+  } */
   
   /* Navbar links */
-  .nav-link {
+  /* .nav-link {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-  }
+  } */
   
   /* Change color on hover */
   .nav-link:hover {
