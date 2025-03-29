@@ -9,10 +9,31 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header data-bs-theme="dark">
+    <header class="mb-2" data-bs-theme="dark" >
         <%- include('./partials/header') %>
     </header>
-    <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+<main>
+    <div class="container col-xxl-8 px-4 py-5">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="#" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">choice.</h1>
+          <p class="lead">Let us choose for you. <br />
+            No more overthinking. No more endless debates. <br>
+            Just quick, easy decisions—made for you. <br>
+           Ready to let fate decide? Try Choice now!</p>
+        
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -58,19 +79,22 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </div>
+      </div> -->
     
-      <section>
-        <h2>Feeling indecisive?</h2>
-        <p>Feeling indecisive? We've got you covered. Choice is the ultimate decision-making web app designed for those moments when you just can't choose. Whether it's a simple coin flip, a quick game of rock-paper-scissors, or a randomized option picker, we take the stress out of choosing so you can move forward with confidence.</p>
-    </section>
+      
 
   <!-- Marketing messaging and featurettes
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
 
   <div class="container marketing">
+    <section>
+      <h2>Feeling indecisive?</h2>
 
+      <p>We've got you covered. choice. is the ultimate decision-making web app designed for those moments when you just can't choose. Whether it's a simple coin flip, a quick game of rock-paper-scissors, or a randomized option picker, we take the stress out of choosing so you can move forward with confidence.No more overthinking. No more endless debates. Just quick, easy decisions—made for you.
+
+Ready to let fate decide? Try Choice now!</p>
+    </section>
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
@@ -140,7 +164,7 @@
         <h2>Get Involved</h2>
         <p>Join our community of kitten lovers! Follow us on social media, subscribe to our newsletter, or contribute to our blog. We'd love to have you as part of the KittenLand family!</p>
     </section> -->
-    
+  </main> 
     <footer>
         <%- include('./partials/footer') %>
     </footer>

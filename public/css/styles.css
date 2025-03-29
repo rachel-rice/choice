@@ -122,6 +122,11 @@ body {
   color: rgb(var(--bs-tertiary-color-rgb));
 }
 
+main {
+  padding-top: 2rem; 
+  padding-bottom: 2rem;
+}
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
