@@ -26,16 +26,45 @@
         <button type="submit">Create List</button>
     </form>
 
-    <!--Update-->
+    <!--Update/Save-->
 
     <form id="updateForm" action="/lists/update/:id" method="POST">
         <input type="hidden" name="_id" id="updateId"> <!--Bundle ID with the form data-->
         <input type="text" name="name" id="updateName" placeholder="New list name" required>
         <input type="text" name="description" id="updateDescription" placeholder="New list description" required>
-        <button type="submit">Update List</button>
+        <button type="submit">Save changes</button>
     </form>
 
-   
+   <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Edit
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form id="updateForm" action="/lists/update/:id" method="POST">
+          <input type="hidden" name="_id" id="updateId"> <!--Bundle ID with the form data-->
+          <input type="text" name="name" id="updateName" placeholder="New list name" required>
+          <input type="text" name="description" id="updateDescription" placeholder="New list description" required>
+          <button type="submit">Save changes</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
         <ul id="itemList" class="list-group w-25">
             <% lists.forEach((list) => { %>
@@ -44,7 +73,8 @@
                         <div>
                           <h6 class="mb-0"><%= list.name %></h6>
                           <p class="mb-0 opacity-75"><%= list.description %></p>
-                          <button class="" onClick="editItem('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')">Edit</button>
+                            <!-- Button trigger modal -->
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editItem('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')">Edit</button>
                           <button class="" onClick="deleteList('<%= list._id %>')">Delete</button>
                          
                         </div>
