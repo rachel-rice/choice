@@ -14,33 +14,68 @@
         <%- include('./partials/header') %>
     </header>
 <main>
-    <div class="container col-xxl-8 px-4 py-5">
-      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <div class="col-10 col-sm-8 col-lg-6">
-          <img src="/img/question.jpg" class="d-block mx-lg-auto img-fluid" alt="Question mark" width="700" height="500" loading="lazy">
+    <!-- How it works section -->
+    <!-- This section describes how the app works and highlights its features -->
+    
+    <div class="container px-4 py-5">
+      <h2 class="pb-2 border-bottom">How it works</h2>
+  
+      <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+        <div class="col d-flex flex-column align-items-start gap-2">
+          <h2 class="fw-bold text-body-emphasis">Feeling indecisive?</h2>
+          <p class="text-body-secondary">We've got you covered. choice. is the ultimate decision-making web app designed for those moments when you just can't choose. Whether it's a simple coin flip, a quick game of rock-paper-scissors, or a randomized option picker, we take the stress out of choosing so you can move forward with confidence.</p>
         </div>
-        <div class="col-lg-6">
-          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">choice.</h1>
-          <h2>Let us choose for you.</h2>
-          <p class="lead">No more overthinking. <br> 
-            No more endless debates. <br>
-            Just quick, easy decisions—made for you. <br>
-            Ready to let fate decide? <br> 
-            Try choice. now!</p>
-        
-          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
-          </div> -->
-        </div>
-      </div>
-    </div>
-
-   
+  
+        <div class="col">
+          <div class="row row-cols-1 row-cols-sm-2 g-4">
+            <div class="col d-flex flex-column gap-2">
+              <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-dark bg-gradient fs-4 rounded-3">
+                <!-- <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3"> -->
+                <i class="bi bi-sign-intersection-y"></i>
+                <!-- <svg class="bi" width="1em" height="1em">
+                  <use xlink:href="#collection" />
+                </svg> -->
+              </div>
+              <a href="#" class="link-offset-2 link-underline link-underline-opacity-0">
+              <h4 class="fw-semibold mb-0 text-body-emphasis">Random Pick</h4>
+              <p class="text-body-secondary">List your choices, and we'll pick one for you. You can even sign in to save your lists for easy decision making in the future.</p>
+            </a>
+            </div>
+  
+            <div class="col d-flex flex-column gap-2">
+              <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-dark bg-gradient fs-4 rounded-3">
+                <i class="bi bi-coin"></i>
+                <!-- <svg class="bi" width="1em" height="1em">
+                  <use xlink:href="#gear-fill" /> -->
+                </svg>
+              </div>
+              <a href="/flip" class="link-offset-2 link-underline link-underline-opacity-0">
+              <h4 class="fw-semibold mb-0 text-body-emphasis">Coin Flip</h4>
+              <p class="text-body-secondary">The classic tiebreaker for yes/no decisions.</p>
+            </a>
+            </div>
+  
+            <div class="col d-flex flex-column gap-2">
+              <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-dark bg-gradient fs-4 rounded-3">
+                <i class="bi bi-scissors"></i>
+                <!-- <svg class="bi" width="1em" height="1em">
+                  <use xlink:href="#speedometer" /> -->
+                <!-- </svg> -->
+              </div>
+              <a href="/rock" class="link-offset-2 link-underline link-underline-opacity-0">
+              <h4 class="fw-semibold mb-0 text-body-emphasis">Rock, Paper, Scissors</h4>
+              <p class="text-body-secondary">Settle disputes with a digital game.</p>
+            </a>
+            </div>
           
             
+          </div>
+        </div>
+      </div>
+    </div>         
         
   </main> 
+    <!-- Footer -->
     <footer>
         <%- include('./partials/footer') %>
     </footer>
