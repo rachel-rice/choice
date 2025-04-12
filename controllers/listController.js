@@ -1,5 +1,4 @@
 const List = require("../models/List");
-const Item = require('../models/Item');
 
 module.exports = {
     // Get all lists with their items
@@ -53,15 +52,21 @@ module.exports = {
         try {
             const list = await List.findById(req.params.id);
             if (list) {
+                // Delete related items before deleting the list
                 await Item.deleteMany({ list: list._id });
+                // Delete the list itself
                 await List.findByIdAndDelete(req.params.id);
             }
-            res.redirect('/lists');
+
+            res.redirect('/lists'); // After deletion, redirect to the list view
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
         }
     },
+
+};
+
 
 //     addList: async (req, res) => {
 //         try {
@@ -94,4 +99,4 @@ module.exports = {
 //             res.redirect('/list?error=true');
 //         }
 //     }
-};
+// };
