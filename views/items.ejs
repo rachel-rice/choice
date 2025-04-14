@@ -20,33 +20,33 @@
 
     <!--Add List-->
 
-    <form id="createForm" action="/lists/add" method="POST"> 
-        <input type="text" name="name" placeholder="List name" required>
-        <input type="text" name="description" placeholder="List description" required>
-        <button type="submit">Create List</button>
+    <form id="createForm" action="/items/add" method="POST"> 
+        <input type="text" name="name" placeholder="Item name" required>
+        <input type="text" name="description" placeholder="Item description" required>
+        <button type="submit">Create Item</button>
     </form>
 
     <!--Update/Save -->
 
-    <form id="listUpdateForm" action="/lists/update/:id" method="POST">
-      <input type="hidden" name="_id" id="listUpdateId">
-      <input type="text" name="name" id="listUpdateName" placeholder="New list name" required>
-      <input type="text" name="description" id="listUpdateDescription" placeholder="New list description" required>
+    <form id="updateForm" action="/items/update/:id" method="POST">
+      <input type="hidden" name="_id" id="updateId">
+      <input type="text" name="name" id="updateName" placeholder="New item name" required>
+      <input type="text" name="description" id="updateDescription" placeholder="New item description" required>
       <button type="submit">Save changes</button>
     </form>
 
-    <!-- Display Lists -->
+    <!-- Display Items -->
     <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
         <ul id="itemList" class="list-group w-25">
-            <% lists.forEach((list) => { %>
+            <% items.forEach((item) => { %>
                 <li class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div>
-                          <h6 class="mb-0"><%= list.name %></h6>
-                          <p class="mb-0 opacity-75"><%= list.description %></p>
+                          <h6 class="mb-0"><%= item.name %></h6>
+                          <p class="mb-0 opacity-75"><%= item.description %></p>
                             
-                          <button type="button" class="btn btn-primary" onClick="editList('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')">Edit</button>
-                          <button class="" onClick="deleteList('<%= list._id %>')">Delete</button>
+                          <button type="button" class="btn btn-primary" onClick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description %>')">Edit</button>
+                          <button class="" onClick="deleteItem('<%= item._id %>')">Delete</button>
                          
                         </div>
                       </div>

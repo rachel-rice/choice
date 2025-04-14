@@ -1,64 +1,64 @@
-const List = require("../models/List");
+const Item = require("../models/Item");
 
 module.exports = {
-    // Get all lists with their items
-    getAllLists: async (req, res) => {
+    // Get all items
+    getAllItems: async (req, res) => {
         try {
-            const lists = await List.find().populate('items');
-            res.render('lists', { lists });
+            const items = await Item.find()
+            res.render('items', { items });
         } catch (err) {
             console.error(err);
             res.status(500).send("Server Error");
         }
     },
 
-    // Get a single list by ID
-    getListById: async (req, res) => {
+    // Get a single item by ID
+    getItemById: async (req, res) => {
         try {
-            const list = await List.findById(req.params.id).populate('items');
-            res.render('list', { list });
+            const item = await Item.findById(req.params.id);
+            res.render('item', { item });
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
         }
     },
 
-    // Create a new list
-    createList: async (req, res) => {
+    // Create a new item
+    createItem: async (req, res) => {
         try {
             const { name, description } = req.body;
-            await List.create({ name, description, items: [] });
-            res.redirect('/lists');
+            await Item.create({ name, description });
+            res.redirect('/items');
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
         }
     },
 
-     // Update a list by ID
-     updateList: async (req, res) => {
+     // Update a item by ID
+     updateItem: async (req, res) => {
         try {
             const { name, description } = req.body;
-            await List.findByIdAndUpdate(req.params.id, { name, description });
-            res.redirect('/lists');
+            await Item.findByIdAndUpdate(req.params.id, { name, description });
+            res.redirect('/items');
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
         }
     },
 
-    // Delete a list by ID
-    deleteList: async (req, res) => {
+    // Delete a item by ID
+    deleteItem: async (req, res) => {
         try {
-            const list = await List.findById(req.params.id);
-            if (list) {
-                // Delete related items before deleting the list
-                await Item.deleteMany({ list: list._id });
-                // Delete the list itself
-                await List.findByIdAndDelete(req.params.id);
+            const item = await Item.findById(req.params.id);
+            if (item) {
+                console.log('Item found:', item); // Log the item if it exists
+                await Item.findByIdAndDelete(req.params.id);
+            }else {
+                console.log('Item not found'); // Log if the item does not exist
             }
 
-            res.redirect('/lists'); // After deletion, redirect to the list view
+            res.redirect('/items'); // After deletion, redirect to the item view
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');

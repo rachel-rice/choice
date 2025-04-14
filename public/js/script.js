@@ -1,63 +1,39 @@
-// ================== List Editor ==================
-function editList(id, name, description) {
-  const idInput = document.getElementById("listUpdateId");
-  const nameInput = document.getElementById("listUpdateName");
-  const descInput = document.getElementById("listUpdateDescription");
-  const form = document.getElementById("listUpdateForm");
-
-  if (container && idInput && nameInput && descInput && form) {
-    container.style.display = "block";
-    idInput.value = id;
-    nameInput.value = name;
-    descInput.value = description;
-    form.action = `/lists/update/${id}`;
+// ============Random choices============== 
+ 
+ //Handle Edit Requests
+  function editItem(id, name, description) {
+    // Populate the hidden field with the id
+    document.getElementById("updateId").value = id;
+  
+    // Populate the form fields with the existing item's data
+    document.getElementById("updateName").value = name;
+    document.getElementById("updateDescription").value = description;
+  
+    // Update the form's action attribute
+    document.getElementById("updateForm").action = `/items/update/${id}`;
   }
-}
+  
+// Delete Item
+async function deleteItem(id) {
+  if (confirm("Are you sure you want to delete this item?")) {
+    try {
+      console.log('Deleting item with ID:', id); // Debugging log
+      const response = await fetch(`/items/delete/${id}`, { // Ensure id is passed here
+        method: 'DELETE',
+      });
 
-// Delete List
-async function deleteList(id) {
-  if (!confirm("Are you sure you want to delete this list?")) return;
-
-  try {
-    console.log('Deleting list at URL:', `/lists/delete/${id}`);
-    const response = await fetch(`/lists/delete/${id}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      // Remove the list item from the DOM without full reload
-      const button = document.querySelector(`button[onclick*="deleteList('${id}'"]`);
-      const listItem = button ? button.closest('li') : null;
-      if (listItem) listItem.remove();
-      console.log('List deleted and removed from DOM');
-    } else {
-      console.error('Failed to delete list, status:', response.status);
+      if (response.ok) {
+        console.log('Item deleted successfully');
+        location.reload();
+      } else {
+        console.error('Failed to delete item, status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
     }
-  } catch (error) {
-    console.error('Error deleting list:', error);
   }
 }
 
-
-// Handle Delete List Requests
-// async function deleteList(id) {
-//   if (confirm("Are you sure you want to delete this list?")) {
-//     try {
-//       const response = await fetch(`/lists/delete/${id}`, {
-//         method: 'DELETE',
-//       });
-
-//       if (response.ok) {
-//         console.log('List deleted successfully');
-//         location.reload();
-//       } else {
-//         console.log('Failed to delete list');
-//       }
-//     } catch (error) {
-//       console.log('An error occurred:', error);
-//     }
-//   }
-// }
 
 
 // ================== Coin Flip ==================
