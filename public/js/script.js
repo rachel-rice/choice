@@ -11,6 +11,10 @@
   
     // Update the form's action attribute
     document.getElementById("updateForm").action = `/items/update/${id}`;
+
+    // Show the modal
+    const modal = new bootstrap.Modal(document.getElementById('editItemModal'));
+    modal.show();
   }
   
 // Delete Item
