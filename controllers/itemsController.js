@@ -46,57 +46,24 @@ module.exports = {
             res.status(500).send('Server Error');
         }
     },
+    // Delete an item by ID
 
-    // Delete a item by ID
     deleteItem: async (req, res) => {
         try {
             const item = await Item.findById(req.params.id);
             if (item) {
                 console.log('Item found:', item); // Log the item if it exists
                 await Item.findByIdAndDelete(req.params.id);
-            }else {
+                console.log('Item deleted successfully'); // Log after successful deletion
+            } else {
                 console.log('Item not found'); // Log if the item does not exist
             }
-
-            res.redirect('/items'); // After deletion, redirect to the item view
+    
+            // Send a JSON response instead of redirecting
+            res.status(200).json({ message: 'Item deleted successfully' });
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
+            console.error('Error deleting item:', err);
+            res.status(500).json({ error: 'Server Error' });
         }
-    },
-
+    }
 };
-
-
-//     addList: async (req, res) => {
-//         try {
-//             const newList = new List(req.body);
-//             await newList.save();
-//             res.redirect('/list');
-//         } catch (err) {
-//             console.error(err);
-//             res.redirect('/item?error=true');
-//         }
-//     },
-//     updateList: async (req, res) => {
-//         const { id } = req.params;
-//         const { name, description } = req.body;
-//         try {
-//             await List.findByIdAndUpdate(id, { name, description });
-//             res.redirect('/list');
-//         } catch (err) {
-//             console.error(err);
-//             res.redirect('/list?error=true');
-//         }
-//     },
-//     deleteList: async (req, res) => {
-//         const { id } = req.params;
-//         try {
-//             await List.findByIdAndDelete(id);
-//             res.redirect('/list');
-//         } catch (err) {
-//             console.error(err);
-//             res.redirect('/list?error=true');
-//         }
-//     }
-// };
