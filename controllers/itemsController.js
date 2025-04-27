@@ -65,5 +65,20 @@ module.exports = {
             console.error('Error deleting item:', err);
             res.status(500).json({ error: 'Server Error' });
         }
+    },
+    // New function for random item picker
+    getRandomItem: async (req, res) => {
+        try {
+            const items = await Item.find(); // Fetch all items
+            if (items.length === 0) {
+                return res.status(404).json({ message: "No items available to pick." });
+            }
+            const randomIndex = Math.floor(Math.random() * items.length);
+            const randomItem = items[randomIndex];
+            res.json(randomItem); // Send the random item as JSON
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Server Error' });
+        }
     }
 };

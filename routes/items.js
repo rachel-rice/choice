@@ -9,4 +9,7 @@ router.post('/add', itemsController.createItem);
 router.post('/update/:id', itemsController.updateItem);
 router.delete('/delete/:id', itemsController.deleteItem);
 
+// Route for random item picker
+router.get('/api/random', itemsController.getRandomItem);
+
 module.exports = router;

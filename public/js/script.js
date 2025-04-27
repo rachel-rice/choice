@@ -1,5 +1,6 @@
-// ============Random choices============== 
+// ============Random choice============== 
  
+// Making changes to the items in the list
 //Handle Edit Requests
   function editItem(id, name, description) {
     // Populate the hidden field with the id
@@ -37,6 +38,40 @@
       }
     }
 }
+
+// Randomly pick an item from the list
+function pickRandomItem(items) {
+  if (items.length === 0) {
+    return null;
+  }
+  const randomIndex = Math.floor(Math.random() * items.length);
+  return items[randomIndex];
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const button = document.getElementById('pickButton');
+  const result = document.getElementById('result');
+
+  button.addEventListener('click', async () => {
+    result.textContent = 'Picking...'; // show a quick message while loading
+
+    try {
+      const response = await fetch('/items/api/random'); // Fetch random item from server
+      const data = await response.json();
+
+      if (data.message) {
+        result.textContent = data.message; // No items to pick
+      } else {
+        result.textContent = `${data.name}: ${data.description || 'No description'}`;
+      }
+    } catch (error) {
+      result.textContent = 'Error fetching random item';
+      console.error('Error fetching random item:', error);
+    }
+  });
+});
+
+
 
 
 // ================== Coin Flip ==================

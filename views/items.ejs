@@ -13,12 +13,19 @@
         <%- include('./partials/header') %>
        
     </header>
-        <h1>Random Selection</h1>
-    <div>
+    <h1>random choice</h1>
+    <div class="container">
+        
+      
+      
+      <div class="row justify-content-between">
 
-    </div>
-
-    <!--Add List-->
+ <!--Add Item-->
+      
+        <div class="col-4">
+          <h3>ADD ITEM:</h3>
+       
+   
 
     <form id="createForm" action="/items/add" method="POST"> 
         <input type="text" name="name" placeholder="Item name" required>
@@ -67,23 +74,33 @@
 
     <!-- Display Items -->
     <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
-        <ul id="itemList" class="list-group w-25">
+        <ul id="itemList" class="list-group">
             <% items.forEach((item) => { %>
-                <li class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <li class="list-group-item d-flex justify-content-between align-items-start" aria-current="true">
                     <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
+                       <div>
                           <h6 class="mb-0"><%= item.name %></h6>
                           <p class="mb-0 opacity-75"><%= item.description %></p>
-                            
+                        </div>
+                        <div> 
                           <button type="button" class="btn btn-primary" onClick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description %>')">Edit</button>
                           <button type="button" class="btn btn-secondary" onClick="deleteItem('<%= item._id %>')">Delete</button>
-                         
                         </div>
+                       
                       </div>
                 </li>
             <% }); %> 
         </ul>
       </div>
+    </div>
+    <div class="col-4">
+      <h3>PICK AT RANDOM</h3>
+      <button id="pickButton">Pick</button>
+      <h2 id="result"></h3>
+  
+    </div>
+    </div>
+    </div>
 
     <footer>
         <%- include('./partials/footer') %>
