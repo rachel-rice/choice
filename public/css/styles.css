@@ -118,14 +118,7 @@
 
 body {
   padding-top: 5rem;
-  padding-bottom: 3rem;
-  color: rgb(var(--bs-tertiary-color-rgb));
-}
-
-main {
-  padding-top: 2rem; 
-  padding-bottom: 2rem;
-
+ 
 }
 
 /* Icon Styling */
