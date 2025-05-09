@@ -1,4 +1,6 @@
+require("dotenv").config({ path: "./config/.env" });
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const connectDB = require("./config/database");
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
@@ -16,6 +18,9 @@ connectDB();
 
 //Set EJS as tempalting engine for views
 app.set('view engine', 'ejs')
+
+// Set EJS layout middleware
+app.use(expressLayouts);
 
 //Enable CORS
 app.use(cors())
