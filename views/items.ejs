@@ -1,25 +1,20 @@
 <div class="container py-4">
-  <div class="text-center mb-4">
-    <h1 class="display-4">Random Choice</h1>
-    <h3 class="fw-light">Pick one from your list</h3>
+  <div class="text-center mb-5">
+    <h1 class="display-3 fw-bold mb-3">Random Choice</h1>
+    <h3 class="fw-light text-muted mb-4">Pick one from your list</h3>
   </div>
       
   <div class="row mb-5 justify-content-center">
     <div class="col-md-6 text-center">
-      <h4 class="mb-3">Pick at Random</h4>
-      <button id="pickButton" class="btn btn-outline-dark mb-3">
+      <h4 class="mb-4 text-dark">Pick at Random</h4>
+      <button id="pickButton" class="btn btn-outline-dark btn-standard">
         <i class="bi bi-shuffle me-1"></i>Pick
       </button>
       <h2 id="result" class="mt-2 text-primary"></h2>
     </div>
   </div> 
+ <!-- <button id="pickButton" class="btn btn-outline-dark mb-3"></button> -->
 
-  <!--Add Item Button-->
-  <div class="text-center mb-4">
-    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addItemModal">
-      <i class="bi bi-plus-circle me-1"></i>Add Item
-    </button>
-  </div>
 
   <!-- Display List of Items -->
   <div class="row justify-content-center">
@@ -32,9 +27,9 @@
               <h6 class="mb-1 fw-bold"><%= item.name %></h6>
               <p class="mb-0 text-muted"><%= item.description %></p>
             </div>
-            <div class="btn-group btn-group-sm" role="group"> 
-              <button type="button" class="btn btn-outline-dark" onClick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description %>')"><i class="bi bi-pencil me-1"></i>Edit</button>
-              <button type="button" class="btn btn-outline-danger" onClick="deleteItem('<%= item._id %>')"><i class="bi bi-trash me-1"></i>Delete</button>
+            <div class="btn-group-sm d-flex gap-2" role="group"> 
+              <button type="button" class="btn btn-outline-dark flex-fill" onClick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description %>')"><i class="bi bi-pencil me-1"></i>Edit</button>
+              <button type="button" class="btn btn-outline-danger flex-fill" onClick="deleteItem('<%= item._id %>')"><i class="bi bi-trash me-1"></i>Delete</button>
             </div>
           </li>
         <% }); %> 
@@ -42,6 +37,13 @@
     </div>
   </div>
 </div>
+
+  <!--Add Item Button-->
+  <div class="text-center mb-4">
+    <button type="button" class="btn btn-outline-dark btn-standard" data-bs-toggle="modal" data-bs-target="#addItemModal">
+      <i class="bi bi-plus-circle me-1"></i>Add Item
+    </button>
+  </div>
 
 <!-- Add Item Modal -->
 <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
