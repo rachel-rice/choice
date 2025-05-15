@@ -146,6 +146,14 @@ i {
   text-transform: capitalize;
 }
 
+.coin-img {
+  max-width: 120px;
+}
+
+.coin-result {
+  min-height: 2.5rem; /* or whatever height fits your font size and design */
+}
+
 /* Coin flip */
 .spin {
   animation: flip 0.6s ease-in-out;
