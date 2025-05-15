@@ -114,18 +114,17 @@
 
 /* GLOBAL STYLES
 -------------------------------------------------- */
-/* Padding below the footer and lighter body text */
 
 body {
   padding-top: 5rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1, h2, h3 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
-body {
-  font-family: 'Open Sans', sans-serif;
-}
+
+
 
 /* Icon Styling */
 .feature-icon-small {

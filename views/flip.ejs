@@ -1,8 +1,8 @@
 
-    <div class="container-sm px-4 py-5 my-5 text-center">
+    <!-- <div class="container-sm px-4 py-5 my-5 text-center"> -->
         <!-- <img id="coin" class="d-block mx-auto mb-4" src="/img/heads.png" alt="Coin" width="72" height="57"> -->
         <!-- <h1 class="display-5 fw-bold text-body-emphasis">Flip a Coin</h1> -->
-        <div class="col-lg-6 mx-auto">
+        <!-- <div class="col-lg-6 mx-auto">
           <p class="lead mb-4">For those times when you need a simple yes/no answer, flip a coin.</p>
           <h3>Click coin below to flip.</h3>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -10,5 +10,85 @@
           </div>
           <h2 id="result"></h2>
         </div>
-      </div>
+      </div> -->
   
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-semibold text-primary">Play a Game of Chance</h1>
+    <p class="text-muted">Try your luck with one of these random games.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Rock Paper Scissors -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h4 class="card-title">Rock Paper Scissors</h4>
+          <!-- Insert RPS game UI here -->
+          <div id="rpsGame">
+            <!-- Example layout -->
+            <button class="btn btn-outline-dark m-1">Rock</button>
+            <button class="btn btn-outline-dark m-1">Paper</button>
+            <button class="btn btn-outline-dark m-1">Scissors</button>
+            <p class="mt-3 fw-bold" id="rpsResult"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coin Flip -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h4 class="card-title">Coin Flip</h4>
+          <h5>Click coin below to flip.</h5>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <img id="coin" class="img-fluid" src="/img/heads.png" alt="Coin">
+          </div>
+          <h2 id="result"></h2>
+          <!-- <button class="btn btn-outline-dark" onclick="flipCoin()">Flip</button>
+          <p class="mt-3 fw-bold" id="coinResult"></p> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mb-5">
+      <h3 class="display-6 fw-light text-secondary">Coming soon...</h3>
+   
+   </div>
+    <!-- Random Number Picker -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h4 class="card-title">Random Number Picker</h4>
+          <form class="row g-2 justify-content-center">
+            <div class="col-auto">
+              <input type="number" class="form-control" id="min" placeholder="Min">
+            </div>
+            <div class="col-auto">
+              <input type="number" class="form-control" id="max" placeholder="Max">
+            </div>
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-dark mt-2" onclick="pickRandomNumber()">Pick</button>
+            </div>
+          </form>
+          <p class="mt-3 fw-bold" id="numberResult"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Magic 8 Ball -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h4 class="card-title">Magic 8 Ball</h4>
+          <input type="text" class="form-control mb-2" id="eightBallQuestion" placeholder="Ask a question">
+          <button class="btn btn-outline-dark" onclick="askMagic8Ball()">Ask</button>
+          <p class="mt-3 fw-bold" id="eightBallAnswer"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
