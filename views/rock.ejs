@@ -1,32 +1,39 @@
+<!-- rock,paper,scissors -->
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0 rounded-4 text-center p-4">
+        <h1 class="display-5 fw-semibold text-primary mb-3">Rock, Paper, Scissors</h1>
+        <p class="lead text-muted mb-4">Choose rock, paper, or scissors to play against the computer.</p>
 
-        <h1>Rock, Paper, Scissors</h1>
-        <div class="container-sm px-4 py-5 my-5 text-center">
-            <!-- <h1 class="display-5 fw-bold text-body-emphasis">Rock, Paper, Scissors</h1> -->
-            <div class="col-lg-6 mx-auto">
-              <p class="lead mb-4">Choose rock, paper, or scissors to play against the computer.</p>
-              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <form action="/rock" method="POST">
-                    <button type="submit" name="choice" value="rock">🪨 Rock</button>
-                    <button type="submit" name="choice" value="paper">📄 Paper</button>
-                    <button type="submit" name="choice" value="scissors">✂️ Scissors</button>
-                </form>
-        
-              </div>
-             
-            </div>
-            <% if (result) { %>
-                <section>
-                    <h2>Game Result</h2>
-                    <p><strong>Your Choice:</strong> <%= playerChoice %></p>
-                    <p><strong>Computer's Choice:</strong> <%= computerChoice %></p>
-                    <p><strong>Result:</strong> You <%= result %>!</p>
-                </section>
-            <% } %>
-    
-            <% if (error) { %>
-                <section>
-                    <h2>Error</h2>
-                    <p><%= error %></p>
-                </section>
-            <% } %>
-          </div>
+        <form action="/rock" method="POST" class="d-grid gap-3">
+          <button type="submit" name="choice" value="rock" class="btn btn-outline-dark btn-lg">
+            🪨 Rock
+          </button>
+          <button type="submit" name="choice" value="paper" class="btn btn-outline-primary btn-lg">
+            📄 Paper
+          </button>
+          <button type="submit" name="choice" value="scissors" class="btn btn-outline-danger btn-lg">
+            ✂️ Scissors
+          </button>
+        </form>
+
+        <% if (result) { %>
+        <div class="mt-5">
+          <h4 class="fw-semibold text-success">Game Result</h4>
+          <p><strong>Your Choice:</strong> <%= playerChoice %></p>
+          <p><strong>Computer's Choice:</strong> <%= computerChoice %></p>
+          <p><strong>Result:</strong> You <%= result %>!</p>
+        </div>
+        <% } %>
+
+        <% if (error) { %>
+        <div class="mt-4 text-danger">
+          <h4 class="fw-semibold">Error</h4>
+          <p><%= error %></p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
