@@ -7,27 +7,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/items">pick one</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/flip">coin flip (random choices)</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/rock">rock | paper | scissors</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            random choices
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="/items">pick one</a></li>
+            <li><a class="dropdown-item" href="/flip">flip coin</a></li>
+            <li><a class="dropdown-item" href="/rock">rock | paper | scissors</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/about">about</a></li>
+          </ul>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto mb-2 mb-md-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            menu
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">sign in</a></li>
-            <li><a class="dropdown-item" href="#">create account</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">logout</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#">login</a>
         </li>
       </ul>
     </div>
