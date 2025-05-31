@@ -10,6 +10,7 @@ const mainRoutes = require("./routes/main");
 const flipRoutes = require("./routes/flip");
 const rockRoutes = require("./routes/rock");
 const itemsRoutes = require("./routes/items");
+const numberRoutes = require("./routes/number");
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/", mainRoutes);
 app.use("/items", itemsRoutes);
 app.use("/flip", flipRoutes);
 app.use("/rock", rockRoutes);
+app.use("/number", numberRoutes)
 
 //Server running
 app.listen(process.env.PORT, () => {
