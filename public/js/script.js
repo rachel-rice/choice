@@ -72,8 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
 // ================== Coin Flip ==================
 document.addEventListener("DOMContentLoaded", function () {
   const coin = document.getElementById("coin");
@@ -142,4 +140,24 @@ document.addEventListener("DOMContentLoaded", () => {
       return "You lose!";
     }
   }
+});
+
+// ================== Pick a Number ==================
+
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('maxNumber');
+  const numberResult = document.getElementById('result');
+  const button = document.getElementById('pickNumber');
+
+  button.addEventListener('click', () => {
+    const max = parseInt(input.value, 10);
+
+    if (isNaN(max) || max < 1) {
+      result.textContent = 'Please enter a valid number (1 or greater).';
+      return;
+    }
+
+    const randomNumber = Math.floor(Math.random() * max) + 1;
+    result.textContent = `Number Selected: ${randomNumber}`;
+  });
 });
