@@ -1,32 +1,34 @@
 // ============Random choice============== 
  
-// Making changes to the items in the list
-//Handle Edit Requests
+// Function to populate the Edit Item modal with existing data
   function editItem(id, name, description) {
-    // Populate the hidden field with the id
+    // Set hidden input to item's ID
     document.getElementById("updateId").value = id;
   
-    // Populate the form fields with the existing item's data
+    // Fill in the name and description fields with current data
     document.getElementById("updateName").value = name;
     document.getElementById("updateDescription").value = description;
   
-    // Update the form's action attribute
+    // Update the form's action so it submits to the correct update route
     document.getElementById("updateForm").action = `/items/update/${id}`;
 
-    // Show the modal
+    // Display the modal using Bootstrap
     const modal = new bootstrap.Modal(document.getElementById('editItemModal'));
     modal.show();
   }
   
-// Delete Item
+// Function to delete an item from the list
   async function deleteItem(id) {
     if (confirm("Are you sure you want to delete this item?")) {
       try {
         console.log('Deleting item with ID:', id); // Debugging log
+
+        // Send DELETE request to server with item ID
         const response = await fetch(`/items/delete/${id}`, { // Ensure id is passed here
           method: 'DELETE',
       });
 
+        // Refresh the page if deletion was successful
         if (response.ok) {
           console.log('Item deleted successfully');
           location.reload();
@@ -39,7 +41,7 @@
     }
 }
 
-// Randomly pick an item from the list
+// Function to randomly pick an item from the array/list
 function pickRandomItem(items) {
   if (items.length === 0) {
     return null;
@@ -48,6 +50,7 @@ function pickRandomItem(items) {
   return items[randomIndex];
 }
 
+// Event listener for the "Pick Random Item" button click
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('pickButton');
   const result = document.getElementById('result');
@@ -73,14 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ================== Coin Flip ==================
+
+// Add event listener to the coin image to handle coin flip logic
 document.addEventListener("DOMContentLoaded", function () {
   const coin = document.getElementById("coin");
   const resultText = document.getElementById("result");
 
   if (coin && resultText) {
     coin.addEventListener("click", function () {
+      // Start the coin flip animation
       coin.classList.add("spin");
 
+      // Wait 300ms to simulate the flip duration and then show result
       setTimeout(() => {
         const isHeads = Math.random() < 0.5;
 
@@ -92,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
           resultText.textContent = "Tails!";
         }
 
+        // Remove the spin class to stop the animation after the result is shown
         coin.classList.remove("spin");
       }, 300);
     });
@@ -100,6 +108,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // ================== Rock Paper Scissors ==================
+
+// Handles click events for rock, paper, scissors choices and updates the game state
 document.addEventListener("DOMContentLoaded", () => {
   const choices = document.querySelectorAll(".choice");
   const resultDisplay = document.getElementById("result");
@@ -114,17 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const computerChoice = getComputerChoice();
         const result = getResult(playerChoice, computerChoice);
 
+        // Show the result and update scores
         resultDisplay.textContent = `You chose ${playerChoice}, computer chose ${computerChoice}. ${result}`;
         scoreDisplay.textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
       });
     });
   }
 
+  // Randomly select computer's choice
   function getComputerChoice() {
     const options = ["rock", "paper", "scissors"];
     return options[Math.floor(Math.random() * options.length)];
   }
 
+  // Determine the result and update scores
   function getResult(playerChoice, computerChoice) {
     if (playerChoice === computerChoice) {
       return "It's a draw!";
@@ -144,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ================== Pick a Number ==================
 
+// Handles picking a random number between 1 and user-defined maximum
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('maxNumber');
   const numberResult = document.getElementById('result');
@@ -152,11 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
   button.addEventListener('click', () => {
     const max = parseInt(input.value, 10);
 
+    // Validate input
     if (isNaN(max) || max < 1) {
       result.textContent = 'Please enter a valid number (1 or greater).';
       return;
     }
 
+    // Pick and display random number
     const randomNumber = Math.floor(Math.random() * max) + 1;
     result.textContent = `Number Selected: ${randomNumber}`;
   });
