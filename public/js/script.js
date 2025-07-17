@@ -92,10 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const isHeads = Math.random() < 0.5;
 
         if (isHeads) {
-          coin.src = "img/heads.png";
+          coin.src = "img/maybe-coin.svg"; // Change to heads image
           resultText.textContent = "Heads!";
         } else {
-          coin.src = "img/tails.png";
+          coin.src = "img/so-coin.svg"; // Change to tails image
           resultText.textContent = "Tails!";
         }
 
