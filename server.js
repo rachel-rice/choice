@@ -1,4 +1,3 @@
-// Load environment variables from config/.env file
 require("dotenv").config({ path: "./config/.env" });
 
 // Import core modules and middleware
@@ -12,9 +11,10 @@ const logger = require("morgan"); // Logs HTTP requests to the console
 
 // Import route files
 const mainRoutes = require("./routes/main");
+const itemsRoutes = require("./routes/items");
+const listRoutes = require("./routes/list");
 const flipRoutes = require("./routes/flip");
 const rockRoutes = require("./routes/rock");
-const itemsRoutes = require("./routes/items");
 const numberRoutes = require("./routes/number");
 
 const app = express();
@@ -25,6 +25,7 @@ connectDB();
 //Set EJS as tempalting engine for views
 app.set('view engine', 'ejs')
 
+// Middleware
 // Set EJS layout middleware
 app.use(expressLayouts);
 
@@ -44,14 +45,15 @@ app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-//Routes For Which The Server Is Listening
+//Routes
 app.use("/", mainRoutes);
 app.use("/items", itemsRoutes);
+app.use("/list", listRoutes);
 app.use("/flip", flipRoutes);
 app.use("/rock", rockRoutes);
 app.use("/number", numberRoutes)
 
-//Server running
+//Server
 app.listen(process.env.PORT, () => {
     console.log(`Server is running, you better catch it`);
   });
