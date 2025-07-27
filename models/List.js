@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define the schema for a List
+// Define the schema
 const ListSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -8,5 +8,5 @@ const ListSchema = new mongoose.Schema({
   }
 }, { timestamps: true }); 
 
+// Export the model 
 module.exports = mongoose.model('List', ListSchema);
-
