@@ -9,9 +9,12 @@ router.get('/', listsController.getLists);
 router.get('/:id', listsController.getListById);
 
 // Create a new list
-router.post('/', listsController.createList);
+router.post('/add', listsController.createList);
 
-// Pick a random item from a list
-router.get('/:id/random', listsController.getRandomItem);
+// Update a list by ID
+router.post('/update/:id', listsController.updateList);
+
+// Delete a list by ID
+router.delete('/delete/:id', listsController.deleteList);
 
 module.exports = router;

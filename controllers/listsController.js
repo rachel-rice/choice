@@ -35,19 +35,23 @@ module.exports = {
       res.status(500).send("Server Error");
     }
   },
-
-  // Pick a random item from a list
-  getRandomItem: async (req, res) => {
+  updateList: async (req, res) => {
     try {
-      const items = await Item.find({ list: req.params.id });
-      if (items.length === 0) {
-        return res.send("No items in this list.");
-      }
-      const randomItem = items[Math.floor(Math.random() * items.length)];
-      res.render('lists/random', { item: randomItem });
+      await List.findByIdAndUpdate(req.params.id, { name: req.body.name });
+      res.redirect('/lists');
     } catch (err) {
       console.error(err);
       res.status(500).send("Server Error");
+    }
+  },
+  // Delete a list by ID
+  deleteList: async (req, res) => {
+    try {
+      await List.findByIdAndDelete(req.params.id);
+      res.status(200).json({ message: 'List deleted successfully' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Server Error' });
     }
   }
 };

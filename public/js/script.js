@@ -1,4 +1,33 @@
-// ============Random choice============== 
+// ============List Management==============
+// Show the Edit List modal and populate it with data
+function editList(id, name, description) {
+  document.getElementById("updateId").value = id;
+  document.getElementById("updateName").value = name;
+  // document.getElementById("updateDescription").value = description;
+  document.getElementById("updateForm").action = `/lists/update/${id}`;
+  const modal = new bootstrap.Modal(document.getElementById('editListModal'));
+  modal.show();
+}
+
+// Delete a list by ID
+async function deleteList(id) {
+  if (confirm("Are you sure you want to delete this list?")) {
+    try {
+      const response = await fetch(`/lists/delete/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        location.reload();
+      } else {
+        alert('Failed to delete list.');
+      }
+    } catch (error) {
+      alert('Error deleting list.');
+    }
+  }
+}
+
+// ============Item management============== 
  
 // Function to populate the Edit Item modal with existing data
   function editItem(id, name, description) {
