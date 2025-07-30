@@ -1,0 +1,85 @@
+<!-- Display List of Lists -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h3 class="mb-3">Your Lists</h3>
+      <ul id="listList" class="list-group shadow-sm rounded">
+        <% lists.forEach((list) => { %>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="mb-1 fw-bold"><%= list.name %></h6>
+              <p class="mb-0 text-muted"><%= list.description %></p>
+            </div>
+            <div class="btn-group-sm d-flex gap-2" role="group"> 
+              <button type="button" class="btn btn-outline-dark flex-fill" onClick="editList('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')"><i class="bi bi-pencil me-1"></i>Edit</button>
+              <button type="button" class="btn btn-outline-danger flex-fill" onClick="deleteList('<%= list._id %>')"><i class="bi bi-trash me-1"></i>Delete</button>
+            </div>
+          </li>
+        <% }); %> 
+      </ul>
+    </div>
+  </div>
+</div>
+
+  <!--Add List Button-->
+  <div class="text-center mb-4">
+    <button type="button" class="btn btn-outline-dark btn-standard" data-bs-toggle="modal" data-bs-target="#addListModal">
+      <i class="bi bi-plus-circle me-1"></i>Add List
+    </button>
+  </div>
+
+<!-- Add List Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addListodalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="createForm" action="/lists/add" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addListModalLabel">Add New List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="createName" class="form-label">List Name</label>
+            <input type="text" name="name" id="createName" class="form-control" placeholder="List name" maxlength="20" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="createDescription" class="form-label">Description</label>
+            <input type="text" name="description" id="createDescription" class="form-control" placeholder="List description" maxlength="20" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-outline-dark">Create Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+   
+<!-- Edit Modal -->
+<div class="modal fade" id="editListModal" tabindex="-1" aria-labelledby="editListModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="updateForm" action="/lists/update/:id" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editListModalLabel">Edit List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="_id" id="updateId">
+          <div class="mb-3">
+            <label for="updateName" class="form-label">List Name</label>
+            <input type="text" name="name" id="updateName" class="form-control" placeholder="New list name" maxlength="20" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="updateDescription" class="form-label">Description</label>
+            <input type="text" name="description" id="updateDescription" class="form-control" placeholder="New item description" maxlength="20" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-outline-dark">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

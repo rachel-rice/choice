@@ -2,18 +2,18 @@ const List = require('../models/List');
 const Item = require('../models/Item');
 
 module.exports = {
-  // GET /lists - Show all lists
+  // Show all lists
   getLists: async (req, res) => {
     try {
       const lists = await List.find().sort({ name: 1 });
-      res.render('lists/index', { lists });
+      res.render('lists', { lists });
     } catch (err) {
       console.error(err);
       res.status(500).send("Server Error");
     }
   },
 
-  // GET /lists/:id - Show items in a list
+  // Show items in a list
   getListById: async (req, res) => {
     try {
       const list = await List.findById(req.params.id);
@@ -25,7 +25,7 @@ module.exports = {
     }
   },
 
-  // POST /lists - Create new list
+  // Create new list
   createList: async (req, res) => {
     try {
       await List.create({ name: req.body.name });
@@ -36,7 +36,7 @@ module.exports = {
     }
   },
 
-  // GET /lists/:id/random - Pick a random item from a list
+  // Pick a random item from a list
   getRandomItem: async (req, res) => {
     try {
       const items = await Item.find({ list: req.params.id });

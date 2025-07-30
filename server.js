@@ -12,7 +12,7 @@ const logger = require("morgan"); // Logs HTTP requests to the console
 // Import route files
 const mainRoutes = require("./routes/main");
 const itemsRoutes = require("./routes/items");
-const listRoutes = require("./routes/list");
+const listRoutes = require("./routes/lists");
 const flipRoutes = require("./routes/flip");
 const rockRoutes = require("./routes/rock");
 const numberRoutes = require("./routes/number");
@@ -48,7 +48,7 @@ app.use(express.json())
 //Routes
 app.use("/", mainRoutes);
 app.use("/items", itemsRoutes);
-app.use("/list", listRoutes);
+app.use("/lists", listRoutes);
 app.use("/flip", flipRoutes);
 app.use("/rock", rockRoutes);
 app.use("/number", numberRoutes)
