@@ -18,7 +18,7 @@ module.exports = {
     try {
       const list = await List.findById(req.params.id);
       const items = await Item.find({ list: list._id });
-      res.render('lists/show', { list, items });
+      res.render('items', { list, items });
     } catch (err) {
       console.error(err);
       res.status(500).send("Server Error");

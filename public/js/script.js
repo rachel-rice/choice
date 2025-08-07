@@ -94,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.message) {
         result.textContent = data.message; // No items to pick
       } else {
-        result.textContent = `${data.name}: ${data.description || 'No description'}`;
+        result.textContent = data.description
+          ? `${data.name}: ${data.description}`
+          : data.name;
       }
     } catch (error) {
       result.textContent = 'Error fetching random item';

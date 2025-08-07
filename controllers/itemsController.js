@@ -27,9 +27,12 @@ module.exports = {
     // Create a new item
     createItem: async (req, res) => {
         try {
-            const { name, description } = req.body; // Extract fields from the request body
-            await Item.create({ name, description }); // Create and save new item
-            res.redirect('/items');// Redirect to items list after creation
+            const { name, description, list } = req.body; // Extract fields from the request body
+            await Item.create({ name, 
+                description: description || undefined,
+            list
+         }); // Create and save new item
+            res.redirect('/lists/' + list);// Redirect to list of items after creation
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');

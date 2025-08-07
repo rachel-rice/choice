@@ -19,7 +19,7 @@
   <!-- Display List of Items -->
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h3 class="mb-3">Your Items</h3>
+      <h3 class="mb-3">Items for "<%= list.name %>"</h3>
       <ul id="itemList" class="list-group shadow-sm rounded">
         <% items.forEach((item) => { %>
           <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -50,6 +50,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="createForm" action="/items/add" method="POST">
+        <input type="hidden" name="list" value="<%= list._id %>">
         <div class="modal-header">
           <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -61,7 +62,7 @@
           </div>
           <div class="mb-3">
             <label for="createDescription" class="form-label">Description</label>
-            <input type="text" name="description" id="createDescription" class="form-control" placeholder="Item description" maxlength="20" required>
+            <input type="text" name="description" id="createDescription" class="form-control" placeholder="Item description" maxlength="20">
           </div>
         </div>
         <div class="modal-footer">
@@ -90,7 +91,7 @@
           </div>
           <div class="mb-3">
             <label for="updateDescription" class="form-label">Description</label>
-            <input type="text" name="description" id="updateDescription" class="form-control" placeholder="New item description" maxlength="20" required>
+            <input type="text" name="description" id="updateDescription" class="form-control" placeholder="New item description" maxlength="20">
           </div>
         </div>
         <div class="modal-footer">
