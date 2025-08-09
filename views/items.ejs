@@ -1,7 +1,7 @@
 <!-- Random Pick -->
 <div class="container py-4">
   <div class="text-center mb-5">
-    <h1 class="display-3 fw-bold mb-3">Randomizer</h1>
+    <h1 class="display-3 fw-bold mb-3">Rachel's Randomizer</h1>
     <h3 class="fw-light text-muted mb-4">A random selection will be chosen from your list</h3>
   </div>
       
@@ -19,7 +19,7 @@
   <!-- Display List of Items -->
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h3 class="mb-3">Items for "<%= list.name %>"</h3>
+      <h3 class="mb-3"><%= list.name %></h3>
       <ul id="itemList" class="list-group shadow-sm rounded">
         <% items.forEach((item) => { %>
           <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -58,7 +58,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="createName" class="form-label">Item Name</label>
-            <input type="text" name="name" id="createName" class="form-control" placeholder="Item name" maxlength="20" required>
+            <input type="text" name="name" id="createName" class="form-control" placeholder="Item name" maxlength="40" required>
           </div>
           <div class="mb-3">
             <label for="createDescription" class="form-label">Description</label>
@@ -87,7 +87,7 @@
           <input type="hidden" name="_id" id="updateId">
           <div class="mb-3">
             <label for="updateName" class="form-label">Item Name</label>
-            <input type="text" name="name" id="updateName" class="form-control" placeholder="New item name" maxlength="20" required>
+            <input type="text" name="name" id="updateName" class="form-control" placeholder="New item name" maxlength="40" required>
           </div>
           <div class="mb-3">
             <label for="updateDescription" class="form-label">Description</label>
