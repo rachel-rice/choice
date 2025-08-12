@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -12,9 +12,9 @@ const listSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
   email:    { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String },
+  googleId:  { type: String, unique: true, sparse: true },
   lists:    [listSchema] // store lists in user account
 });
 
@@ -27,6 +27,7 @@ userSchema.pre('save', async function(next) {
 });
 
 userSchema.methods.matchPassword = function(password) {
+   if (!this.password) return false;
   return bcrypt.compare(password, this.password);
 };
 

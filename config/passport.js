@@ -4,10 +4,16 @@ const User = require('../models/User');
 
 module.exports = function(passport) {
   // Local Strategy
-  passport.use(new LocalStrategy(async (username, password, done) => {
+  passport.use(new LocalStrategy(
+    {usernameField: 'email'},
+    async (email, password, done) => {
     try {
-      const user = await User.findOne({ username });
-      if (!user) return done(null, false, { message: 'Incorrect username' });
+      const user = await User.findOne({ email });
+      if (!user) return done(null, false, { message: 'No user found' });
+
+      if (!user.password) {
+        return done(null, false, { message: 'No local password set. Please log in with Google.' });
+      }
 
       const isMatch = await user.matchPassword(password);
       if (!isMatch) return done(null, false, { message: 'Incorrect password' });
@@ -30,7 +36,6 @@ module.exports = function(passport) {
         if (!user) {
           user = await User.create({
             googleId: profile.id,
-            username: profile.displayName,
             email: profile.emails[0].value,
             password: '' // no password for Google OAuth users
           });

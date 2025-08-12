@@ -1,33 +1,36 @@
 const express = require('express');
 const passport = require('passport');
-const User = require('../models/User');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-// Register
-router.post('/register', async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-    const user = new User({ username, email, password });
-    await user.save();
-    res.json({ success: true });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+// Register (local)
+router.post('/register', authController.register);
 
-// Login
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.json({ success: true, user: req.user });
-});
+// Login (local)
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login',
+  failureFlash: true,
+}), authController.loginSuccess);
+
+// Google OAuth login
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+// Google OAuth callback URL
+router.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/login', 
+    session: true,
+  }),
+    authController.googleCallback
+);
 
 // Logout
-router.post('/logout', (req, res, next) => {
-  req.logout(function(err) {
-    if (err) return next(err);
-    res.json({ success: true });
-  });
-});
+router.post('/logout', authController.logout);
 
 module.exports = router;
 

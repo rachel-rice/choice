@@ -10,7 +10,7 @@ const mongoose = require('mongoose'); // ODM to interact with MongoDB
 const methodOverride = require('method-override'); // Middleware to support PUT and DELETE methods in forms
 const cors = require('cors'); // Middleware to enable CORS - Cross-Origin Resource Sharing
 const logger = require("morgan"); // Logs HTTP requests to the console
-
+const flash = require('connect-flash'); // Middleware for flash messages
 
 // Import route files
 const mainRoutes = require("./routes/main");
@@ -19,7 +19,7 @@ const listRoutes = require("./routes/lists");
 const flipRoutes = require("./routes/flip");
 const rockRoutes = require("./routes/rock");
 const numberRoutes = require("./routes/number");
-const authRoutes = require('./routes/authRoutes');
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
@@ -36,6 +36,7 @@ app.use(express.static('public')); //Serve static folder from public directory
 app.use(methodOverride('_method')); // Method Override for PUT and DELETE requests in forms
 app.use(express.urlencoded({ extended: false })); //Body parsing - parse results from form data
 app.use(express.json()); //Body parsing - parse JSON data
+app.use(flash()); //Flash messages middleware
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'yoursecret',
