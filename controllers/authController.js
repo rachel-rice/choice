@@ -7,29 +7,24 @@ exports.register = async (req, res) => {
     // Check if user exists already
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: 'Email already in use' });
+      return res.status(400).json({ success: false, message: 'Email already in use' });
     }
 
     const user = new User({ email, password });
     await user.save();
-    res.json({ success: true });
+    res.json({ success: true, message: 'Registration successful' });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
-};
-
-exports.loginSuccess = (req, res) => {
-  res.json({ success: true, user: req.user });
 };
 
 exports.logout = (req, res, next) => {
   req.logout(function (err) {
     if (err) return next(err);
-    res.json({ success: true });
+    res.json({ success: true, message: 'Logged out successfully' });
   });
 };
 
 exports.googleCallback = (req, res) => {
-  // You can redirect or respond with user info here
   res.json({ success: true, user: req.user });
 };
