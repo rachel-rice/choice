@@ -4,6 +4,16 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
+// Render register page
+router.get('/register', (req, res) => {
+  res.render('auth/register');
+});
+
+// Render login page
+router.get('/login', (req, res) => {
+  res.render('auth/login');
+});
+
 // Register (local)
 router.post('/register', authController.register);
 
