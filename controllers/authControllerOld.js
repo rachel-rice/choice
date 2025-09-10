@@ -12,10 +12,8 @@ exports.register = async (req, res) => {
     }
 
     // Hash the password before saving
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const user = new User({ email, password: hashedPassword });
+    const user = new User({ email, password });
     await user.save();
     res.json({ success: true, message: 'Registration successful' });
   } catch (err) {
