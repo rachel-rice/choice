@@ -5,6 +5,7 @@ const express = require('express'); // Main Express framework
 const expressLayouts = require('express-ejs-layouts'); //Milldeware to support layout files with EJS
 const session = require('express-session'); // Middleware for session management
 const passport = require('passport');    // Middleware for authentication
+require('./config/passport')(passport); // Register passport strategies before using routes
 const connectDB = require("./config/database"); // Database connection function
 const mongoose = require('mongoose'); // ODM to interact with MongoDB
 const methodOverride = require('method-override'); // Middleware to support PUT and DELETE methods in forms
