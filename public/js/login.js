@@ -21,7 +21,7 @@ const form = document.getElementById('loginForm');
       } else {
         messageDiv.innerHTML = `<p style="color:green;">Login successful! Redirecting...</p>`;
         setTimeout(() => {
-          window.location.href = '/list'; // or your home page
+          window.location.href = '/lists'; // or your home page
         }, 1000);
       }
     } catch (err) {
