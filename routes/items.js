@@ -12,9 +12,9 @@ router.get('/', itemsController.getAllItems);
 router.get('/:id', itemsController.getItemById);
 
 // Handles form submissions for creating, updating, and deleting items
-router.post('/add', itemsController.createItem);
-router.post('/update/:id', itemsController.updateItem);
-router.delete('/delete/:id', itemsController.deleteItem);
+router.post('/add/:listId', itemsController.createItem);
+router.post('/update/:listId', itemsController.updateItem);
+router.delete('/delete/:listId', itemsController.deleteItem);
 
 // Random item picker route
 router.get('/api/random', itemsController.getRandomItem);
