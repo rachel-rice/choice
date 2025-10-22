@@ -27,13 +27,29 @@ module.exports = {
     // Create a new item
     createItem: async (req, res) => {
         try {
-            const { name, description } = req.body; // Extract fields from the request body
-            await Item.create({ 
+            const { name, description, list } = req.body; // Extract fields from the request body
+            
+            if (req.user) {
+              await Item.create({ 
                 name, 
                 description: description || undefined,
-                listId: req.params.listId
-         }); // Create and save new item
-            res.redirect(`/lists/${req.params.listId}`);// Redirect to list of items after creation
+                listId: list
+              }); 
+            } else {
+              req.session.guestLists = req.session.guestLists || [];
+              const guestList = req.session.guestLists.find(l => l._id === list);  
+
+              if (!guestList) {
+                return res.status(404).send("Guest list not found");
+              }
+
+              guestList.items.push({
+                name,
+                description: description || ''
+              });
+            }
+
+            res.redirect(`/lists/${list}`);// Redirect to list of items after creation
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
