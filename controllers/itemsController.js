@@ -1,5 +1,5 @@
-// Import the Item model to interact with the database
 const Item = require("../models/Item");
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
     // Get all items
@@ -44,6 +44,7 @@ module.exports = {
               }
 
               guestList.items.push({
+                _id: uuidv4(),
                 name,
                 description: description || ''
               });
@@ -59,34 +60,59 @@ module.exports = {
      // Update a item by ID
      updateItem: async (req, res) => {
         try {
-            const { name, description } = req.body; 
+            const { name, description, listId } = req.body; 
+
+            if (req.user) {
             await Item.findByIdAndUpdate(req.params.id, { name, description }); // Update item
-            res.redirect('/items'); // Redirect to items list after update
+            } else {
+              const guestLists = req.session.guestLists || [];
+              const guestList = guestLists.find(
+                (l) => l._id.toString() === listId.toString()
+            );
+                if (!guestList) return res.status(404).send("Guest list not found");
+
+                  const item = guestList.items.find(
+                 (i) => i._id.toString() === req.params.id.toString()
+                );
+                if (!item) return res.status(404).send("Item not found");
+
+                item.name = name;
+                item.description = description || "";
+            }
+
+          res.redirect('/items'); // Redirect to items list after update
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
+          console.error(err);
+          res.status(500).send('Server Error');
         }
     },
 
     // Delete an item by ID
-    deleteItem: async (req, res) => {
-        try {
-            const item = await Item.findById(req.params.id);
-            if (item) {
-                console.log('Item found:', item); // Log the item if it exists
-                await Item.findByIdAndDelete(req.params.id); // Delete the item by ID
-                console.log('Item deleted successfully'); // Log after successful deletion
-            } else {
-                console.log('Item not found'); // Log if the item does not exist
-            }
-    
-            // Send a JSON response instead of redirecting
-            res.status(200).json({ message: 'Item deleted successfully' });
-        } catch (err) {
-            console.error('Error deleting item:', err);
-            res.status(500).json({ error: 'Server Error' });
-        }
-    },
+  deleteItem: async (req, res) => {
+    try {
+      const { listId } = req.body; // For guests, we need the parent list
+
+      if (req.user) {
+        await Item.findByIdAndDelete(req.params.id);
+      } else {
+        const guestLists = req.session.guestLists || [];
+        const guestList = guestLists.find(
+          (l) => l._id.toString() === listId.toString()
+        );
+        if (!guestList) return res.status(404).send("Guest list not found");
+
+        guestList.items = guestList.items.filter(
+          (i) => i._id.toString() !== req.params.id.toString()
+        );
+      }
+
+      res.status(200).json({ message: "Item deleted successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server Error" });
+    }
+  },
+
     // Fetch a random item from the list
     getRandomItem: async (req, res) => {
         try {

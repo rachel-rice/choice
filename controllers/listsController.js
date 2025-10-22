@@ -6,14 +6,11 @@ module.exports = {
   // Show all lists
   getLists: async (req, res) => {
     try {
-      let lists;
-      if (req.user) {
-        lists = await List.find({ userId: req.user._id });
-      } else {
-        lists = req.session.guestLists || [];
-      }
+      const lists = req.user
+        ? await List.find({ userId: req.user._id })
+        : req.session.guestLists || [];
 
-        res.render('lists', { user: req.user, lists });
+      res.render('lists', { user: req.user, lists });
     } catch (err) {
       console.error(err);
       res.status(500).send("Server Error");
@@ -34,7 +31,6 @@ module.exports = {
         });
 
         if (!list) {
-          console.log("List not found for user:", req.user._id);
           return res.status(404).send("List not found");
         }
 
@@ -42,10 +38,9 @@ module.exports = {
       } else {
         // Guest: fetch from session
         const guestLists = req.session.guestLists || [];
-        list = guestLists.find(l => l._id === req.params.id);
+        list = guestLists.find(l => l._id.toString() === req.params.id.toString());
 
         if (!list) {
-          console.log("Guest list not found in session:", req.params.id);
           return res.status(404).send("List not found");
         }
 
@@ -93,19 +88,21 @@ module.exports = {
   updateList: async (req, res) => {
     try {
       if (req.user) {
-      const updated = await List.findByIdAndUpdate(
-        { _id: req.params.id, userId: req.user._id },
-        { name: req.body.name }
-      );
+        const updated = await List.findByIdAndUpdate(
+          { _id: req.params.id, userId: req.user._id },
+          { name: req.body.name }
+        );
 
-      if (!updated) {
+        if (!updated) {
         return res.status(404).send("List not found");
       }
       } else {
         // Guest user
         const guestLists = req.session.guestLists || [];
-        const listIndex = guestLists.find(l => l._id === req.params.id);
-        if (list) list.name = req.body.name;
+        const list = guestLists.find(l => l._id.toString() === req.params.id.toString());
+        if (!list) return res.status(404).send("List not found");
+        
+        list.name = req.body.name;
       }
 
       res.redirect('/lists');
@@ -133,10 +130,10 @@ module.exports = {
       } else {
         // Guest user
         req.session.guestLists = (req.session.guestLists || []).filter(
-          l => l._id !== req.params.id
+          l => l._id.toString() !== req.params.id.toString()
         );
       }
-      
+
       res.status(200).json({ message: 'List deleted successfully' });
     } catch (err) {
       console.error(err);
