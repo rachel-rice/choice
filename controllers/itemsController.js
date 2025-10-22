@@ -116,7 +116,20 @@ module.exports = {
     // Fetch a random item from the list
     getRandomItem: async (req, res) => {
         try {
-            const items = await Item.find(); // Fetch all items
+          let items = [];
+
+            if(req.user) {
+              const userLists = await List.find({ userId: req.user._id });
+              const listIds = userLists.map(l => l._id);
+              items = await Item.find({ listId: { $in: listIds } });
+            } else {
+              const guestLists = req.session.guestLists || [];
+              guestLists.forEach(list => {
+                if (list.items && list.items.length) {
+                  items.push(...list.items);
+            }
+        });
+  }
             if (items.length === 0) {
                 return res.status(404).json({ message: "No items available to pick." });
             }
