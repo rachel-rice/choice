@@ -1,12 +1,16 @@
 const Item = require("../models/Item");
+const List = require("../models/List");
 const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
     // Get all items
     getAllItems: async (req, res) => {
         try {
-            const items = await Item.find() // Fetch all items from the database
-            res.render('items', { items }); // Render the 'items' view and pass the items
+      const items = await Item.find() // Fetch all items from the database
+      // Provide a safe default `list` object so the `items` view can render
+      // even when no specific list is selected (prevents template errors).
+      const list = { _id: '', name: 'All Items' };
+      res.render('items', { items, list }); // Render the 'items' view and pass the items + list
         } catch (err) {
             console.error(err);
             res.status(500).send("Server Error");
@@ -80,7 +84,18 @@ module.exports = {
                 item.description = description || "";
             }
 
-          res.redirect('/items'); // Redirect to items list after update
+          // Redirect back to the parent list after updating the item.
+          // Prefer the listId sent in the form (works for guests and most cases).
+          let redirectUrl = '/items';
+          if (listId) {
+            redirectUrl = `/lists/${listId}`;
+          } else if (req.user) {
+            // If no listId in the form but user is authenticated, try to read it from the item record.
+            const updated = await Item.findById(req.params.id).select('listId');
+            if (updated && updated.listId) redirectUrl = `/lists/${updated.listId}`;
+          }
+
+          res.redirect(redirectUrl); // Redirect to the appropriate list page after update
         } catch (err) {
           console.error(err);
           res.status(500).send('Server Error');
@@ -115,31 +130,37 @@ module.exports = {
 
     // Fetch a random item from the list
     getRandomItem: async (req, res) => {
-        try {
-          let items = [];
-
-            if(req.user) {
-              const userLists = await List.find({ userId: req.user._id });
-              const listIds = userLists.map(l => l._id);
-              items = await Item.find({ listId: { $in: listIds } });
-            } else {
-              const guestLists = req.session.guestLists || [];
-              guestLists.forEach(list => {
-                if (list.items && list.items.length) {
-                  items.push(...list.items);
-            }
-        });
-  }
-            if (items.length === 0) {
-                return res.status(404).json({ message: "No items available to pick." });
-            }
-            const randomIndex = Math.floor(Math.random() * items.length);
-            const randomItem = items[randomIndex]; // Pick a random item
-            res.json(randomItem); // Send the random item as JSON
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Server Error' });
-        }
+  try {
+    const listId = req.params.listId || req.query.listId;
+    if (!listId) {
+      return res.status(400).json({ message: "Missing list ID." });
     }
+
+    let items = [];
+
+    if (req.user) {
+      // Logged-in user → only get items from that user's list
+      items = await Item.find({ listId });
+    } else {
+      // Guest user → only get items from their session list
+      const guestLists = req.session.guestLists || [];
+      const list = guestLists.find(l => l._id === listId);
+      if (!list) {
+        return res.status(404).json({ message: "Guest list not found." });
+      }
+      items = list.items || [];
+    }
+
+    if (items.length === 0) {
+      return res.status(404).json({ message: "No items available in this list." });
+    }
+
+    const randomItem = items[Math.floor(Math.random() * items.length)];
+    res.json(randomItem);
+  } catch (err) {
+    console.error("Error in getRandomItem:", err);
+    res.status(500).json({ error: "Server Error" });
+  }
+}
 };
 

@@ -13,11 +13,13 @@ router.get('/:id', itemsController.getItemById);
 
 // Handles form submissions for creating, updating, and deleting items
 router.post('/add/:listId', itemsController.createItem);
-router.post('/update/:listId', itemsController.updateItem);
-router.delete('/delete/:listId', itemsController.deleteItem);
+// Update item by item id (client sends item id in the URL)
+router.post('/update/:id', itemsController.updateItem);
+// Expect item id in the URL when deleting: /items/delete/:id
+router.delete('/delete/:id', itemsController.deleteItem);
 
 // Random item picker route
-router.get('/api/random', itemsController.getRandomItem);
+router.get('/api/random/:listId', itemsController.getRandomItem);
 
 // Export the router to be used in the main app
 module.exports = router;
