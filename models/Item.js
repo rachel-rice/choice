@@ -4,7 +4,11 @@ const mongoose = require('mongoose')
 const ItemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  list: { type: mongoose.Schema.Types.ObjectId, ref: 'List', required: true }
+  listId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'List', 
+    required: true 
+  }
 }, { timestamps: true });
 
 // Export the model 

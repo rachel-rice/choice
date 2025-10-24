@@ -53,8 +53,17 @@ async function deleteList(id) {
         console.log('Deleting item with ID:', id); // Debugging log
 
         // Send DELETE request to server with item ID
+        // Include listId for guest/session users. Read from the page if available.
+        const listIdInput = document.querySelector('input[name="listId"]');
+        const listId = listIdInput ? listIdInput.value : undefined;
+
         const response = await fetch(`/items/delete/${id}`, { // Ensure id is passed here
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify({ listId })
       });
 
         // Refresh the page if deletion was successful
@@ -83,16 +92,18 @@ function pickRandomItem(items) {
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('pickButton');
   const result = document.getElementById('result');
+  const listIdInput = document.querySelector('#randomForm input[name="listId"]');
 
   button.addEventListener('click', async () => {
-    result.textContent = 'Picking...'; // show a quick message while loading
+    const listId = listIdInput.value;
+    result.textContent = 'Picking...'; 
 
     try {
-      const response = await fetch('/items/api/random'); // Fetch random item from server
+      const response = await fetch(`/items/api/random/${listId}`); 
       const data = await response.json();
 
       if (data.message) {
-        result.textContent = data.message; // No items to pick
+        result.textContent = data.message; 
       } else {
         result.textContent = data.description
           ? `${data.name}: ${data.description}`

@@ -8,9 +8,12 @@
   <div class="row mb-5 justify-content-center">
     <div class="col-md-6 text-center">
       <h4 class="mb-4 text-dark">Random Picker</h4>
-      <button id="pickButton" class="btn btn-outline-dark btn-standard">
-        <i class="bi bi-shuffle me-1"></i>Pick
-      </button>
+      <form id="randomForm">
+        <input type="hidden" name="listId" value="<%= list._id %>">
+        <button type="button" id="pickButton" class="btn btn-outline-dark btn-standard">
+          <i class="bi bi-shuffle me-1"></i>Pick
+        </button>
+      </form>
       <h2 id="result" class="mt-2 text-primary"></h2>
     </div>
   </div> 
@@ -49,7 +52,7 @@
 <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="createForm" action="/items/add" method="POST">
+      <form id="createForm" action="/items/add/<%= list._id %>" method="POST">
         <input type="hidden" name="list" value="<%= list._id %>">
         <div class="modal-header">
           <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
@@ -79,6 +82,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="updateForm" action="/items/update/:id" method="POST">
+        <input type="hidden" name="listId" value="<%= list._id %>">
         <div class="modal-header">
           <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
