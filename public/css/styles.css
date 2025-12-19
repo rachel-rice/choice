@@ -62,3 +62,24 @@ img{
   width: 50%;
   height: auto;
 }
+
+/* Add List Card */
+.add-card {
+  border: 2px dashed var(--bs-border-color);
+  background: var(--bs-light);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.add-card:hover {
+  transform: translateY(-2px) rotate(-0.2deg);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.12);
+}
+
+/* Optional: slightly smaller font for playful effect */
+.add-card .display-4 {
+  font-size: 2.5rem;
+}
+
+.add-card h6 {
+  font-size: 1rem;
+}
