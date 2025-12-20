@@ -63,11 +63,11 @@ img{
   height: auto;
 }
 
-/* Add List Card */
+/* Add New List Card Styling */
 .add-card {
   border: 2px dashed var(--bs-border-color);
   background: var(--bs-light);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .add-card:hover {
@@ -75,7 +75,8 @@ img{
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.12);
 }
 
-/* Optional: slightly smaller font for playful effect */
+
+/* Slightly smaller font for playful effect */
 .add-card .display-4 {
   font-size: 2.5rem;
 }
@@ -83,3 +84,15 @@ img{
 .add-card h6 {
   font-size: 1rem;
 }
+
+/* Hover for normal list cards */
+.list-card {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.list-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.12);
+}
+
+
