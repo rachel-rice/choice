@@ -1,13 +1,16 @@
 <!-- Random Pick -->
-<div class="container py-4">
+
+<h3 class="mb-4 text-center text-md-start">Randomizer</h3>
+
+<div class="row g-3">
+
   <div class="text-center mb-5">
-    <h1 class="display-3 fw-bold mb-3">Rachel's Randomizer</h1>
-    <h3 class="fw-light text-muted mb-4">A random selection will be chosen from your list</h3>
+    <h4 class="fw-light text-muted mb-4">Pick a Random Item</h4>
   </div>
       
   <div class="row mb-5 justify-content-center">
     <div class="col-md-6 text-center">
-      <h4 class="mb-4 text-dark">Random Picker</h4>
+  
       <form id="randomForm">
         <input type="hidden" name="listId" value="<%= list._id %>">
         <button type="button" id="pickButton" class="btn btn-outline-dark btn-standard">
@@ -17,8 +20,7 @@
       <h2 id="result" class="mt-2 text-primary"></h2>
     </div>
   </div> 
- <!-- <button id="pickButton" class="btn btn-outline-dark mb-3"></button> -->
-
+    
   <!-- Display List of Items -->
   <div class="row justify-content-center">
     <div class="col-md-8">
