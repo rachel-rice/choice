@@ -1,4 +1,5 @@
 // ============List Management==============
+
 // Show the Edit List modal and populate it with data
 function editList(id, name, description) {
   document.getElementById("updateId").value = id;
