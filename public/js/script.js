@@ -1,3 +1,28 @@
+// ============Guest List Management==============
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.APP_USER) return;
+
+  const container = document.getElementById("guestListsContainer");
+  const template = document.getElementById("guestListTemplate");
+
+  const lists = window.ListStorage.getLists();
+
+  lists.forEach(list => {
+    const clone = template.content.cloneNode(true);
+
+    clone.querySelector(".list-name").textContent = list.name;
+
+    clone.querySelector(".edit-btn").onclick = () =>
+      editList(list.id, list.name, "");
+
+    clone.querySelector(".delete-btn").onclick = () =>
+      deleteList(list.id);
+
+    container.appendChild(clone);
+  });
+});
+
 // ============List Management==============
 
 // Show the Edit List modal and populate it with data

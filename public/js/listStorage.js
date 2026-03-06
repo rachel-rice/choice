@@ -4,21 +4,21 @@ const LIST_KEY = "lists";
 
 window.ListStorage = {
 
-  getLists() {
+  getListsFromLocal() {
     const lists = localStorage.getItem(LIST_KEY);
     return lists ? JSON.parse(lists) : [];
   },
 
-  saveLists(lists) {
+  saveListsToLocal(lists) {
     localStorage.setItem(LIST_KEY, JSON.stringify(lists));
   },
 
-  generateId() {
-    return crypto.randomUUID();
+  clearGuestLists() {
+    localStorage.removeItem(LIST_KEY);
   },
 
-  clear() {
-    localStorage.removeItem(LIST_KEY);
+   generateId() {
+    return crypto.randomUUID();
   }
 
 };
