@@ -1,16 +1,24 @@
+// ================== List Storage ==================
+
 const LIST_KEY = "lists";
 
 window.ListStorage = {
-  getListsFromLocal: function() {
-    return JSON.parse(localStorage.getItem(LIST_KEY)) || [];
+
+  getLists() {
+    const lists = localStorage.getItem(LIST_KEY);
+    return lists ? JSON.parse(lists) : [];
   },
-  saveListsToLocal: function(lists) {
+
+  saveLists(lists) {
     localStorage.setItem(LIST_KEY, JSON.stringify(lists));
   },
-  clearGuestLists: function() {
-    localStorage.removeItem(LIST_KEY);
-  },
-  generateId: function() {
+
+  generateId() {
     return crypto.randomUUID();
+  },
+
+  clear() {
+    localStorage.removeItem(LIST_KEY);
   }
+
 };
