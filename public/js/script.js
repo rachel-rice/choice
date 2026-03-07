@@ -1,27 +1,93 @@
 // ============Guest List Management==============
 
+const { render } = require("ejs");
+
 document.addEventListener("DOMContentLoaded", () => {
   if (window.APP_USER) return;
 
-  const container = document.getElementById("guestListsContainer");
+  renderGuestLists();
+});
+
+function renderGuestLists(){
+
+  const container = document.getElementById ("guestListsContainer");
   const template = document.getElementById("guestListTemplate");
 
-  const lists = window.ListStorage.getLists();
+  if (!container || !template) return;
+
+  container.innerHTML = "";
+
+  const lists = window.ListStorage.getListsFromLocal();
 
   lists.forEach(list => {
+
     const clone = template.content.cloneNode(true);
 
     clone.querySelector(".list-name").textContent = list.name;
 
     clone.querySelector(".edit-btn").onclick = () =>
-      editList(list.id, list.name, "");
+      editGuestList(list._id);
 
     clone.querySelector(".delete-btn").onclick = () =>
-      deleteList(list.id);
+      deleteList(list._id);
 
     container.appendChild(clone);
+
   });
-});
+
+}
+
+function createGuestList(name) {
+
+  const lists = window.ListStorage.getListsFromLocal();
+
+  const newList = {
+    _id: window.ListStorage.generateId(),
+    name: name,
+    items: []
+  };
+
+  lists.push(newList);
+
+  window.ListStorage.saveListsToLocal(lists);
+
+  renderGuestLists();
+
+}
+
+function deleteGuestList(id) {
+
+  if (!confirm("Are you sure you want to delete this list?")) return;
+
+  let lists = window.ListStorage.getListsFromLocal();
+
+  lists = lists.filter(list => list._id !== id);
+
+  window.ListStorage.saveListsToLocal(lists);
+
+  renderGuestLists();
+
+}
+
+function editGuestList(id) {
+
+  const lists = window.ListStorage.getListsFromLocal();
+  const list = lists.find(l => l._id === id);
+
+  if (!list) return;
+
+  const newName = prompt("Edit list name:", list.name);
+
+  if (!newName) return;
+
+  list.name = newName;
+
+  window.ListStorage.saveListsToLocal(lists);
+
+  renderGuestLists();
+
+}
+
 
 // ============List Management==============
 
