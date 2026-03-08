@@ -1,7 +1,5 @@
 // ============Guest List Management==============
 
-const { render } = require("ejs");
-
 document.addEventListener("DOMContentLoaded", () => {
   if (window.APP_USER) return;
 
@@ -29,7 +27,7 @@ function renderGuestLists(){
       editGuestList(list._id);
 
     clone.querySelector(".delete-btn").onclick = () =>
-      deleteList(list._id);
+      deleteGuestList(list._id);
 
     container.appendChild(clone);
 
@@ -91,6 +89,37 @@ function editGuestList(id) {
 
 // ============List Management==============
 
+// Create New List
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("createForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", function(e){
+
+    if (window.APP_USER) return;
+
+    e.preventDefault();
+
+    const nameInput = document.getElementById("listName");
+    const name = nameInput.value.trim();
+
+    if (!name) return;
+
+    createGuestList(name);
+
+    nameInput.value = "";
+
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("addListModal")
+    );
+
+    modal?.hide();
+
+  });
+
+});
 // Show the Edit List modal and populate it with data
 function editList(id, name, description) {
   document.getElementById("updateId").value = id;
