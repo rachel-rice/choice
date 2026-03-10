@@ -53,6 +53,37 @@ function createGuestList(name) {
 
 }
 
+function editGuestList(id) {
+
+  const lists = window.ListStorage.getListsFromLocal();
+  const list = lists.find(l => l._id === id);
+
+  if (!list) return;
+
+  document.getElementById("updateId").value = id;
+  document.getElementById("updateName").value = list.name;
+
+  const modal = new bootstrap.Modal(document.getElementById('editListModal'));
+  modal.show();
+
+}
+
+function updateGuestList(id, name){
+
+  const lists = window.ListStorage.getListsFromLocal();
+
+  const list = lists.find(l => l._id === id);
+
+  if (!list) return;
+
+  list.name = name;
+
+  window.ListStorage.saveListsToLocal(lists);
+
+  renderGuestLists();
+
+}
+
 function deleteGuestList(id) {
 
   if (!confirm("Are you sure you want to delete this list?")) return;
@@ -67,24 +98,7 @@ function deleteGuestList(id) {
 
 }
 
-function editGuestList(id) {
 
-  const lists = window.ListStorage.getListsFromLocal();
-  const list = lists.find(l => l._id === id);
-
-  if (!list) return;
-
-  const newName = prompt("Edit list name:", list.name);
-
-  if (!newName) return;
-
-  list.name = newName;
-
-  window.ListStorage.saveListsToLocal(lists);
-
-  renderGuestLists();
-
-}
 
 
 // ============List Management==============
@@ -120,15 +134,46 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const updateForm = document.getElementById("updateForm");
+
+  if (!updateForm) return;
+
+  updateForm.addEventListener("submit", function(e){
+
+    if (window.APP_USER) return;
+
+    e.preventDefault();
+
+    const id = document.getElementById("updateId").value;
+    const name = document.getElementById("updateName").value.trim();
+
+    if (!name) return;
+
+    updateGuestList(id, name);
+
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("editListModal")
+    );
+
+    modal?.hide();
+
+  });
+
+});
 // Show the Edit List modal and populate it with data
-function editList(id, name, description) {
-  document.getElementById("updateId").value = id;
-  document.getElementById("updateName").value = name;
-  // document.getElementById("updateDescription").value = description;
-  document.getElementById("updateForm").action = `/lists/update/${id}`;
-  const modal = new bootstrap.Modal(document.getElementById('editListModal'));
-  modal.show();
-}
+
+// function editList(id, name, description) {
+//   document.getElementById("updateId").value = id;
+//   document.getElementById("updateName").value = name;
+//   // document.getElementById("updateDescription").value = description;
+//   document.getElementById("updateForm").action = `/lists/update/${id}`;
+//   const modal = new bootstrap.Modal(document.getElementById('editListModal')
+// );
+//   modal.show();
+// }
 
 // Delete a list by ID
 async function deleteList(id) {
