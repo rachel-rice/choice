@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     e.preventDefault();
 
-    const nameInput = document.getElementById("listName");
+    const nameInput = document.getElementById("createName");
     const name = nameInput.value.trim();
 
     if (!name) return;
