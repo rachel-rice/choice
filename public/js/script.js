@@ -165,15 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // Show the Edit List modal and populate it with data
 
-// function editList(id, name, description) {
-//   document.getElementById("updateId").value = id;
-//   document.getElementById("updateName").value = name;
-//   // document.getElementById("updateDescription").value = description;
-//   document.getElementById("updateForm").action = `/lists/update/${id}`;
-//   const modal = new bootstrap.Modal(document.getElementById('editListModal')
-// );
-//   modal.show();
-// }
+function editList(id, name, description) {
+  document.getElementById("updateId").value = id;
+  document.getElementById("updateName").value = name;
+  // document.getElementById("updateDescription").value = description;
+  document.getElementById("updateForm").action = `/lists/update/${id}`;
+  const modal = new bootstrap.Modal(document.getElementById('editListModal')
+);
+  modal.show();
+}
 
 // Delete a list by ID
 async function deleteList(id) {
