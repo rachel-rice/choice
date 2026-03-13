@@ -21,7 +21,14 @@ function renderGuestLists(){
 
     const clone = template.content.cloneNode(true);
 
-    clone.querySelector(".list-name").textContent = list.name;
+    const nameEl = clone.querySelector(".list-name");
+    nameEl.textContent = list.name;
+    nameEl.style.cursor = "pointer";
+
+    nameEl.onclick = () => {
+      window.location.href = `/lists/guest/${list._id}`;
+    };  
+    // clone.querySelector(".list-name").textContent = list.name;
 
     clone.querySelector(".edit-btn").onclick = () =>
       editGuestList(list._id);
