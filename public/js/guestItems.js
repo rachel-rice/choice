@@ -20,15 +20,39 @@ document.addEventListener("DOMContentLoaded", () => {
     li.textContent = "No items yet";
     container.appendChild(li);
   } else {
-    list.items.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = item.name;
-      container.appendChild(li);
-    });
-  }
 
+  list.items.forEach(item => {
   
+    const li = document.createElement("li");
+  
+    const span = document.createElement("span");
+    span.textContent = item.name;
+  
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+  
+    deleteBtn.onclick = () => {
+  
+      const lists = window.ListStorage.getListsFromLocal();
+      const list = lists.find(l => String(l._id) === String(listId));
+  
+      list.items = list.items.filter(i => i._id !== item._id);
+  
+      window.ListStorage.saveListsToLocal(lists);
+  
+      location.reload();
+  
+    };
+  
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+  
+    container.appendChild(li);
+  
+  });
 
+  }
+  
   // ADD ITEM FORM HANDLER
   const form = document.getElementById("addItemForm");
 
