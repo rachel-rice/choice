@@ -28,9 +28,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const span = document.createElement("span");
     span.textContent = item.name;
   
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
   
+    editBtn.onclick = () => {
+
+      const newName = prompt("Edit item:", item.name);
+      if (!newName) return;
+
+      const lists = window.ListStorage.getListsFromLocal();
+      const list = lists.find(l => String(l._id) === String(listId));
+
+      const itemToUpdate = list.items.find(i => i._id === item._id);
+
+      itemToUpdate.name = newName.trim();
+
+      window.ListStorage.saveListsToLocal(lists);
+
+      location.reload();
+
+  };
+
+
     deleteBtn.onclick = () => {
   
       const lists = window.ListStorage.getListsFromLocal();
@@ -45,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   
     li.appendChild(span);
+    li.appendChild(editBtn);
     li.appendChild(deleteBtn);
   
     container.appendChild(li);
