@@ -25,8 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const li = document.createElement("li");
   
-    const span = document.createElement("span");
-    span.textContent = item.name;
+    const name = document.createElement("div");
+    name.textContent = item.name;
+
+    const description = document.createElement("div");
+    description.textContent = item.description || "";
   
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
@@ -36,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     editBtn.onclick = () => {
 
-      const newName = prompt("Edit item:", item.name);
-      if (!newName) return;
+      const newName = prompt("Edit item name:", item.name);
+      const newDescription = prompt("Edit description:", item.description);
 
       const lists = window.ListStorage.getListsFromLocal();
       const list = lists.find(l => String(l._id) === String(listId));
@@ -45,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemToUpdate = list.items.find(i => i._id === item._id);
 
       itemToUpdate.name = newName.trim();
+      itemToUpdate.description = newDescription.trim();
 
       window.ListStorage.saveListsToLocal(lists);
 
@@ -66,7 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     };
   
-    li.appendChild(span);
+    li.appendChild(name);
+    li.appendChild(description);
     li.appendChild(editBtn);
     li.appendChild(deleteBtn);
   
@@ -86,8 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       e.preventDefault();
 
-      const input = document.getElementById("itemName");
-      const name = input.value.trim();
+      const nameInput = document.getElementById("itemName");
+      const descInput = document.getElementById("itemDescription");
+      const name = nameInput.value.trim();
+      const description = descInput.value.trim();
 
       if (!name) return;
 
@@ -95,12 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       list.items.push({
         _id: crypto.randomUUID(),
-        name: name
+        name: name,
+        description: description
       });
 
       window.ListStorage.saveListsToLocal(lists);
 
-      input.value = "";
+      nameInput.value = "";
+      descInput.value = "";
 
       location.reload();
 
