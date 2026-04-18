@@ -1,109 +1,109 @@
-// ============Guest List Management==============
+// // ============Guest List Management==============
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.APP_USER) return;
+// document.addEventListener("DOMContentLoaded", () => {
+//   if (window.APP_USER) return;
 
-  renderGuestLists();
-});
+//   renderGuestLists();
+// });
 
-function renderGuestLists(){
+// function renderGuestLists(){
 
-  const container = document.getElementById ("guestListsContainer");
-  const template = document.getElementById("guestListTemplate");
+//   const container = document.getElementById ("guestListsContainer");
+//   const template = document.getElementById("guestListTemplate");
 
-  if (!container || !template) return;
+//   if (!container || !template) return;
 
-  container.innerHTML = "";
+//   container.innerHTML = "";
 
-  const lists = window.ListStorage.getListsFromLocal();
+//   const lists = window.ListStorage.getListsFromLocal();
 
-  lists.forEach(list => {
+//   lists.forEach(list => {
 
-    const clone = template.content.cloneNode(true);
+//     const clone = template.content.cloneNode(true);
 
-    const nameEl = clone.querySelector(".list-name");
-    nameEl.textContent = list.name;
-    nameEl.style.cursor = "pointer";
+//     const nameEl = clone.querySelector(".list-name");
+//     nameEl.textContent = list.name;
+//     nameEl.style.cursor = "pointer";
 
-    nameEl.onclick = () => {
-      window.location.href = `/lists/guest/${list._id}`;
-    };  
-    // clone.querySelector(".list-name").textContent = list.name;
+//     nameEl.onclick = () => {
+//       window.location.href = `/lists/guest/${list._id}`;
+//     };  
+//     // clone.querySelector(".list-name").textContent = list.name;
 
-    clone.querySelector(".edit-btn").onclick = () =>
-      editGuestList(list._id);
+//     clone.querySelector(".edit-btn").onclick = () =>
+//       editGuestList(list._id);
 
-    clone.querySelector(".delete-btn").onclick = () =>
-      deleteGuestList(list._id);
+//     clone.querySelector(".delete-btn").onclick = () =>
+//       deleteGuestList(list._id);
 
-    container.appendChild(clone);
+//     container.appendChild(clone);
 
-  });
+//   });
 
-}
+// }
 
-function createGuestList(name) {
+// function createGuestList(name) {
 
-  const lists = window.ListStorage.getListsFromLocal();
+//   const lists = window.ListStorage.getListsFromLocal();
 
-  const newList = {
-    _id: window.ListStorage.generateId(),
-    name: name,
-    items: []
-  };
+//   const newList = {
+//     _id: window.ListStorage.generateId(),
+//     name: name,
+//     items: []
+//   };
 
-  lists.push(newList);
+//   lists.push(newList);
 
-  window.ListStorage.saveListsToLocal(lists);
+//   window.ListStorage.saveListsToLocal(lists);
 
-  renderGuestLists();
+//   renderGuestLists();
 
-}
+// }
 
-function editGuestList(id) {
+// function editGuestList(id) {
 
-  const lists = window.ListStorage.getListsFromLocal();
-  const list = lists.find(l => l._id === id);
+//   const lists = window.ListStorage.getListsFromLocal();
+//   const list = lists.find(l => l._id === id);
 
-  if (!list) return;
+//   if (!list) return;
 
-  document.getElementById("updateId").value = id;
-  document.getElementById("updateName").value = list.name;
+//   document.getElementById("updateId").value = id;
+//   document.getElementById("updateName").value = list.name;
 
-  const modal = new bootstrap.Modal(document.getElementById('editListModal'));
-  modal.show();
+//   const modal = new bootstrap.Modal(document.getElementById('editListModal'));
+//   modal.show();
 
-}
+// }
 
-function updateGuestList(id, name){
+// function updateGuestList(id, name){
 
-  const lists = window.ListStorage.getListsFromLocal();
+//   const lists = window.ListStorage.getListsFromLocal();
 
-  const list = lists.find(l => l._id === id);
+//   const list = lists.find(l => l._id === id);
 
-  if (!list) return;
+//   if (!list) return;
 
-  list.name = name;
+//   list.name = name;
 
-  window.ListStorage.saveListsToLocal(lists);
+//   window.ListStorage.saveListsToLocal(lists);
 
-  renderGuestLists();
+//   renderGuestLists();
 
-}
+// }
 
-function deleteGuestList(id) {
+// function deleteGuestList(id) {
 
-  if (!confirm("Are you sure you want to delete this list?")) return;
+//   if (!confirm("Are you sure you want to delete this list?")) return;
 
-  let lists = window.ListStorage.getListsFromLocal();
+//   let lists = window.ListStorage.getListsFromLocal();
 
-  lists = lists.filter(list => list._id !== id);
+//   lists = lists.filter(list => list._id !== id);
 
-  window.ListStorage.saveListsToLocal(lists);
+//   window.ListStorage.saveListsToLocal(lists);
 
-  renderGuestLists();
+//   renderGuestLists();
 
-}
+// }
 
 
 
