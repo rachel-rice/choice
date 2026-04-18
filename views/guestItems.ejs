@@ -1,4 +1,24 @@
-<h2 id="listTitle"></h2>
+<div class="container">
+<h2 class="mb-4 text-center text-md-start">Pick One</h2>
+
+<div class="row g-3">
+
+  <div class="text-center mb-5">
+    <h4 class="fw-light text-muted mb-4">Click to pick a random item</h4>
+  </div>
+
+   <div class="row mb-5 justify-content-center">
+    <div class="col-md-6 text-center">
+      <h3 id="listTitle" class="mb-3"></h3>
+      <form id="randomForm">
+        <input type="hidden" name="listId" value="">
+        <button type="button" id="pickButton" class="btn btn-outline-dark btn-standard">
+          <i class="bi bi-shuffle me-1"></i>Pick
+        </button>
+      </form>
+      <h2 id="result" class="mt-2 text-primary"></h2>
+    </div>
+  </div> 
 
 <ul id="itemsContainer" class="list-group"></ul>
 
