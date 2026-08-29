@@ -267,26 +267,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const result = document.getElementById('result');
   const listIdInput = document.querySelector('#randomForm input[name="listId"]');
 
-  button.addEventListener('click', async () => {
-    const listId = listIdInput.value;
-    result.textContent = 'Picking...'; 
-
-    try {
-      const response = await fetch(`/items/api/random/${listId}`); 
-      const data = await response.json();
-
-      if (data.message) {
-        result.textContent = data.message; 
-      } else {
-        result.textContent = data.description
-          ? `${data.name}: ${data.description}`
-          : data.name;
+  if (button) {
+    button.addEventListener('click', async () => {
+      const listId = listIdInput.value;
+      result.textContent = 'Picking...'; 
+  
+      try {
+        const response = await fetch(`/items/api/random/${listId}`); 
+        const data = await response.json();
+  
+        if (data.message) {
+          result.textContent = data.message; 
+        } else {
+          result.textContent = data.description
+            ? `${data.name}: ${data.description}`
+            : data.name;
+        }
+      } catch (error) {
+        result.textContent = 'Error fetching random item';
+        console.error('Error fetching random item:', error);
       }
-    } catch (error) {
-      result.textContent = 'Error fetching random item';
-      console.error('Error fetching random item:', error);
-    }
-  });
+    });
+   }
 });
 
 
@@ -378,17 +380,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const numberResult = document.getElementById('result');
   const button = document.getElementById('pickNumber');
 
-  button.addEventListener('click', () => {
-    const max = parseInt(input.value, 10);
-
-    // Validate input
-    if (isNaN(max) || max < 1) {
-      result.textContent = 'Please enter a valid number (1 or greater).';
-      return;
-    }
-
-    // Pick and display random number
-    const randomNumber = Math.floor(Math.random() * max) + 1;
-    result.textContent = `Number Selected: ${randomNumber}`;
-  });
+  if (button) {
+    button.addEventListener('click', () => {
+      const max = parseInt(input.value, 10);
+  
+      // Validate input
+      if (isNaN(max) || max < 1) {
+        result.textContent = 'Please enter a valid number (1 or greater).';
+        return;
+      }
+  
+      // Pick and display random number
+      const randomNumber = Math.floor(Math.random() * max) + 1;
+      result.textContent = `Number Selected: ${randomNumber}`;
+    });
+  }
 });
