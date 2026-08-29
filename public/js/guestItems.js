@@ -141,7 +141,7 @@ function getCurrentList() {
 
 // ===== Random Picker =====
 
-function pickRandomItem() {
+function pickRandomGuestItem() {
   const listId = String(window.GUEST_LIST_ID);
   const lists = window.ListStorage.getListsFromLocal();
   const list = lists.find(l => String(l._id) === listId);
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btn) {
     btn.addEventListener("click", () => {
       console.log("BUTTON CLICKED");
-      pickRandomItem();
+      pickRandomGuestItem();
     });
   } else {
     console.log("❌ Button not found");
