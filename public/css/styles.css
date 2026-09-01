@@ -115,6 +115,11 @@ img{
   font-size: 1rem;
 }
 
+.list-card,
+.add-card {
+    height: 150px;
+}
+
 /* Hover for normal list cards */
 .list-card {
   transition: transform 0.12s ease, box-shadow 0.12s ease;

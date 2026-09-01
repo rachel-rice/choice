@@ -1,16 +1,22 @@
  <!-- Display List of Lists -->
 <div class="container">   
-<h2 class="mb-4 text-center text-md-start">Randomizer</h2>
+  <h2 class="mb-4 text-center text-md-start">Randomizer</h2>
+
+<div class="text-center mb-5">
+  <h4 class="fw-light text-muted mb-4">
+    Can't decide what to do? Make a list of options, and have one picked for you!
+  </h4>
+</div>
 
 <div class="row g-3">
 
-<div class="text-center mb-5">
+<!-- <div class="text-center mb-5">
   <h4 class="fw-light text-muted mb-4">Can't decide what to do? Make a list of options, and have one picked for you!</h4>
-</div>
+</div> -->
 
   <!-- Add New List Card -->
   <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-    <div class="card add-card shadow-sm h-100 text-center d-flex align-items-center justify-content-center"
+    <div class="card add-card shadow-sm text-center d-flex align-items-center justify-content-center"
          style="cursor: pointer;"
          data-bs-toggle="modal"
          data-bs-target="#addListModal">
@@ -29,31 +35,40 @@
     <div class="card list-card shadow-sm">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-start mb-2">
-          <a href="/lists/<%= list._id %>"><h6 class="card-title mb-0"><%= list.name %></h6></a>
+          <a href="/lists/<%= list._id %>">
+            <h6 class="card-title mb-0"><%= list.name %></h6>
+          </a>
           <!-- labels - to be added -->
           <span class="badge bg-warning text-dark">Maybe</span>
         </div>
 
-        <!-- description - to be added?  -->
+        <!-- description - to be added  -->
         <!-- <p class="card-text text-muted small mb-2">Description Here</p> -->
 
-        <div class="card-body btn-group-sm d-flex gap-2" role="group"> 
-          <button type="button" class="btn btn-outline-dark flex-fill" onClick="editList('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')"><i class="bi bi-pencil me-1"></i>Edit</button>
-          <button type="button" class="btn btn-outline-danger flex-fill" onClick="deleteList('<%= list._id %>')"><i class="bi bi-trash me-1"></i>Delete</button>
+        <div class="btn-group-sm d-flex gap-2" role="group"> 
+
+          <button type="button" class="btn btn-outline-dark flex-fill" onClick="editList('<%= list._id %>', '<%= list.name %>', '<%= list.description %>')">
+            <i class="bi bi-pencil me-1"></i>Edit
+          </button>
+
+          <button type="button" class="btn btn-outline-danger flex-fill" onClick="deleteList('<%= list._id %>')">
+            <i class="bi bi-trash me-1"></i>Delete
+          </button>
+
         </div>
-        <div class="d-flex justify-content-between align-items-center">
+        <!-- <div class="d-flex justify-content-between align-items-center"> -->
           <!-- items count - to be added -->
           <!-- <small class="text-muted">Item Count Here</small>
 
          <span class="drag-hint">⋮⋮</span> -->
           
-        </div>  
+        <!-- </div>   -->
       </div>
     </div>
   </div>
   <% }); %> 
 
-  <div id="guestListsContainer"></div>
+  <div id="guestListsContainer" class="row g-3"></div>
 
 </div>
 </div>
@@ -68,7 +83,8 @@
           <span class="badge bg-warning text-dark">Maybe</span>
         </div>
 
-        <div class="btn-group-sm d-flex gap-2">
+        <div class="btn-group-sm d-flex gap-2" role="group">
+
           <button class="btn btn-outline-dark flex-fill edit-btn">
             <i class="bi bi-pencil me-1"></i>Edit
           </button>
@@ -76,6 +92,7 @@
           <button class="btn btn-outline-danger flex-fill delete-btn">
             <i class="bi bi-trash me-1"></i>Delete
           </button>
+
         </div>
       </div>
     </div>
