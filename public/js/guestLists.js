@@ -8,12 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function renderGuestLists(){
 
-  const container = document.getElementById ("guestListsContainer");
+  const container = document.getElementById ("listsGrid");
   const template = document.getElementById("guestListTemplate");
 
   if (!container || !template) return;
 
-  container.innerHTML = "";
+  // container.innerHTML = "";
+  container.querySelectorAll(".guest-list-card").forEach(card => card.remove());
 
   const lists = window.ListStorage.getListsFromLocal();
 
