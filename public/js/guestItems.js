@@ -16,32 +16,102 @@ document.addEventListener("DOMContentLoaded", () => {
 
   title.textContent = list.name;
 
-  if (!list.items || list.items.length === 0) {
-    const li = document.createElement("li");
-    li.textContent = "No items yet";
-    container.appendChild(li);
-  } else {
+//  if (!list.items || list.items.length === 0) {
+//     const li = document.createElement("li");
+//     li.textContent = "No items yet";
+//     container.appendChild(li);
+//   } else {
+
+//   list.items.forEach(item => {
+  
+//     const li = document.createElement("li");
+  
+//     const name = document.createElement("div");
+//     name.textContent = item.name;
+
+//     const description = document.createElement("div");
+//     description.textContent = item.description || "";
+  
+//     const editBtn =  document.createElement("button");
+//     editBtn.textContent = "Edit";
+
+//     const deleteBtn = document.createElement("button");
+//     deleteBtn.textContent = "Delete";
+  
+//     editBtn.onclick = () => {
+
+//       const newName = prompt("Edit item name:", item.name);
+//       const newDescription = prompt("Edit description:", item.description);
+
+//       const lists = window.ListStorage.getListsFromLocal();
+//       const list = lists.find(l => String(l._id) === String(listId));
+
+//       const itemToUpdate = list.items.find(i => i._id === item._id);
+
+//       itemToUpdate.name = newName.trim();
+//       itemToUpdate.description = newDescription.trim();
+
+//       window.ListStorage.saveListsToLocal(lists);
+
+//       location.reload();
+
+//   };
+
+
+//     deleteBtn.onclick = () => {
+  
+//       const lists = window.ListStorage.getListsFromLocal();
+//       const list = lists.find(l => String(l._id) === String(listId));
+  
+//       list.items = list.items.filter(i => i._id !== item._id);
+  
+//       window.ListStorage.saveListsToLocal(lists);
+  
+//       location.reload();
+  
+//     };
+  
+//     li.appendChild(name);
+//     li.appendChild(description);
+//     li.appendChild(editBtn);
+//     li.appendChild(deleteBtn);
+  
+//     container.appendChild(li);
+  
+//   });
+
+//   }
+  
+if (!list.items || list.items.length === 0) {
+
+  const message = document.createElement("p");
+  message.textContent = "No items yet";
+  message.className = "text-muted";
+
+  container.appendChild(message);
+
+} else {
+
+  const template = document.getElementById("itemCardTemplate");
 
   list.items.forEach(item => {
-  
-    const li = document.createElement("li");
-  
-    const name = document.createElement("div");
+
+    const card = template.content.cloneNode(true);
+
+    const name = card.querySelector(".item-name");
+    const description = card.querySelector(".item-description");
+    const editBtn = card.querySelector(".edit-btn");
+    const deleteBtn = card.querySelector(".delete-btn");
+
     name.textContent = item.name;
-
-    const description = document.createElement("div");
     description.textContent = item.description || "";
-  
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "Edit";
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-  
     editBtn.onclick = () => {
 
       const newName = prompt("Edit item name:", item.name);
       const newDescription = prompt("Edit description:", item.description);
+
+      if (newName === null || newDescription === null) return;
 
       const lists = window.ListStorage.getListsFromLocal();
       const list = lists.find(l => String(l._id) === String(listId));
@@ -54,34 +124,24 @@ document.addEventListener("DOMContentLoaded", () => {
       window.ListStorage.saveListsToLocal(lists);
 
       location.reload();
-
-  };
-
+    };
 
     deleteBtn.onclick = () => {
-  
+
       const lists = window.ListStorage.getListsFromLocal();
       const list = lists.find(l => String(l._id) === String(listId));
-  
-      list.items = list.items.filter(i => i._id !== item._id);
-  
-      window.ListStorage.saveListsToLocal(lists);
-  
-      location.reload();
-  
-    };
-  
-    li.appendChild(name);
-    li.appendChild(description);
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
-  
-    container.appendChild(li);
-  
-  });
 
-  }
-  
+      list.items = list.items.filter(i => i._id !== item._id);
+
+      window.ListStorage.saveListsToLocal(lists);
+
+      location.reload();
+    };
+
+    container.appendChild(card);
+  });
+}
+
   // ADD ITEM FORM HANDLER
   const form = document.getElementById("addItemForm");
 

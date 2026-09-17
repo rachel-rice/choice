@@ -38,9 +38,9 @@
     </div>
   </div>
 
-<ul id="itemsContainer" class="list-group"></ul>
+<ul id="itemsContainer" class="row g-3"></ul>
 
-<form id="addItemForm">
+<!-- <form id="addItemForm">
 
   <input 
     type="text" 
@@ -55,14 +55,14 @@
   >
   <button type="submit">Add</button>
 
-</form>
+</form> -->
 
 <!-- Guest Add Item Modal -->
 <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="createForm" action="/items/add/<%= list._id %>" method="POST">
-        <input type="hidden" name="list" value="<%= list._id %>">
+      <form id="addItemForm">
+        <input type="hidden" name="list" value="">
         <div class="modal-header">
           <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -70,11 +70,11 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="createName" class="form-label">Item Name</label>
-            <input type="text" name="name" id="createName" class="form-control" placeholder="Item name" maxlength="40" required>
+            <input type="text" name="name" id="itemName" class="form-control" placeholder="Item name" maxlength="40" required>
           </div>
           <div class="mb-3">
             <label for="createDescription" class="form-label">Description</label>
-            <input type="text" name="description" id="createDescription" class="form-control" placeholder="Item description" maxlength="20">
+            <input type="text" name="description" id="itemDescription" class="form-control" placeholder="Item description" maxlength="20">
           </div>
         </div>
         <div class="modal-footer">
@@ -85,6 +85,31 @@
     </div>
   </div>
 </div>
+
+<template id="itemCardTemplate">
+  <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+    <div class="card list-card shadow-sm">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h6 class="item-name mb-1 fw-bold"></h6>
+          <p class="item-description mb-0 text-muted"></p>
+        </div>
+
+        <div class="btn-group-sm d-flex gap-2" role="group">
+          <button type="button" class="edit-btn btn btn-outline-dark flex-fill">
+            <i class="bi bi-pencil me-1"></i>Edit
+          </button>
+
+          <button type="button" class="delete-btn btn btn-outline-danger flex-fill">
+            <i class="bi bi-trash me-1"></i>Delete
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
 
 <script>
   window.GUEST_LIST_ID = "<%= listId %>";
