@@ -24,7 +24,9 @@
     </div>
   </div> 
 
-   <div id="itemsContainer" class="row g-3">
+  <!-- Items -->
+  <div id="itemsContainer" class="row g-3">
+
   <!-- Guest Add New Item Card -->
   <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
     <div class="card add-card shadow-sm text-center d-flex align-items-center justify-content-center"
@@ -38,27 +40,6 @@
       </div>
     </div>
   </div>
-
- <!-- <div id="itemsContainer" class="row g-3"> -->
-
-<!-- <ul id="itemsContainer" class="row g-3"></ul> -->
-
-<!-- <form id="addItemForm">
-
-  <input 
-    type="text" 
-    id="itemName"
-    placeholder="Add item"
-    required
-  >
-  <input
-    type="text"
-    id="itemDescription"
-    placeholder="Description (optional)"
-  >
-  <button type="submit">Add</button>
-
-</form> -->
 
 <!-- Guest Add Item Modal -->
 <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
@@ -121,8 +102,13 @@
   </div>
 
 </template>
+
 </div>
+
 </div>
+<div class="text-center mb-5">
+    <h4 class="fw-light text-muted mb-4">Return to <a href="/lists">Lists</a></h4>
+  </div>
 
 <script>
   window.GUEST_LIST_ID = "<%= listId %>";
