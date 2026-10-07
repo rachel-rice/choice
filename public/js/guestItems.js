@@ -108,22 +108,32 @@ if (!list.items || list.items.length === 0) {
 
     editBtn.onclick = () => {
 
-      const newName = prompt("Edit item name:", item.name);
-      const newDescription = prompt("Edit description:", item.description);
+      editingItemId = item._id;
 
-      if (newName === null || newDescription === null) return;
+      document.getElementById("editItemName").value = item.name;
+      document.getElementById("editItemDescription").value = item.description || "";
 
-      const lists = window.ListStorage.getListsFromLocal();
-      const list = lists.find(l => String(l._id) === String(listId));
+      const editModal = new bootstrap.Modal(
+        document.getElementById("editItemModal")
+      );
 
-      const itemToUpdate = list.items.find(i => i._id === item._id);
+      editModal.show();
+      // const newName = prompt("Edit item name:", item.name);
+      // const newDescription = prompt("Edit description:", item.description);
 
-      itemToUpdate.name = newName.trim();
-      itemToUpdate.description = newDescription.trim();
+      // if (newName === null || newDescription === null) return;
 
-      window.ListStorage.saveListsToLocal(lists);
+      // const lists = window.ListStorage.getListsFromLocal();
+      // const list = lists.find(l => String(l._id) === String(listId));
 
-      location.reload();
+      // const itemToUpdate = list.items.find(i => i._id === item._id);
+
+      // itemToUpdate.name = newName.trim();
+      // itemToUpdate.description = newDescription.trim();
+
+      // window.ListStorage.saveListsToLocal(lists);
+
+      // location.reload();
     };
 
     deleteBtn.onclick = () => {
@@ -198,6 +208,47 @@ function getCurrentList() {
   const listId = getCurrentListId();
   return lists.find(list => list._id === listId);
 }
+
+let editingItemId = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const editForm = document.getElementById("editItemForm");
+
+  if (!editForm) return;
+
+  editForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    const name = document.getElementById("editItemName").value.trim();
+    const description =
+      document.getElementById("editItemDescription").value.trim();
+
+    if (!name) return;
+
+    const listId = String(window.GUEST_LIST_ID);
+    const lists = window.ListStorage.getListsFromLocal();
+
+    const list = lists.find(l => String(l._id) === listId);
+
+    if (!list) return;
+
+    const itemToUpdate = list.items.find(
+      item => item._id === editingItemId
+    );
+
+    if (!itemToUpdate) return;
+
+    itemToUpdate.name = name;
+    itemToUpdate.description = description;
+
+    window.ListStorage.saveListsToLocal(lists);
+
+    location.reload();
+  });
+
+});
 
 // ===== Random Picker =====
 
