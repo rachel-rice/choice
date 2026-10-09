@@ -1,11 +1,184 @@
+// // ============Guest List Management==============
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   if (window.APP_USER) return;
+
+//   renderGuestLists();
+// });
+
+// function renderGuestLists(){
+
+//   const container = document.getElementById ("guestListsContainer");
+//   const template = document.getElementById("guestListTemplate");
+
+//   if (!container || !template) return;
+
+//   container.innerHTML = "";
+
+//   const lists = window.ListStorage.getListsFromLocal();
+
+//   lists.forEach(list => {
+
+//     const clone = template.content.cloneNode(true);
+
+//     const nameEl = clone.querySelector(".list-name");
+//     nameEl.textContent = list.name;
+//     nameEl.style.cursor = "pointer";
+
+//     nameEl.onclick = () => {
+//       window.location.href = `/lists/guest/${list._id}`;
+//     };  
+//     // clone.querySelector(".list-name").textContent = list.name;
+
+//     clone.querySelector(".edit-btn").onclick = () =>
+//       editGuestList(list._id);
+
+//     clone.querySelector(".delete-btn").onclick = () =>
+//       deleteGuestList(list._id);
+
+//     container.appendChild(clone);
+
+//   });
+
+// }
+
+// function createGuestList(name) {
+
+//   const lists = window.ListStorage.getListsFromLocal();
+
+//   const newList = {
+//     _id: window.ListStorage.generateId(),
+//     name: name,
+//     items: []
+//   };
+
+//   lists.push(newList);
+
+//   window.ListStorage.saveListsToLocal(lists);
+
+//   renderGuestLists();
+
+// }
+
+// function editGuestList(id) {
+
+//   const lists = window.ListStorage.getListsFromLocal();
+//   const list = lists.find(l => l._id === id);
+
+//   if (!list) return;
+
+//   document.getElementById("updateId").value = id;
+//   document.getElementById("updateName").value = list.name;
+
+//   const modal = new bootstrap.Modal(document.getElementById('editListModal'));
+//   modal.show();
+
+// }
+
+// function updateGuestList(id, name){
+
+//   const lists = window.ListStorage.getListsFromLocal();
+
+//   const list = lists.find(l => l._id === id);
+
+//   if (!list) return;
+
+//   list.name = name;
+
+//   window.ListStorage.saveListsToLocal(lists);
+
+//   renderGuestLists();
+
+// }
+
+// function deleteGuestList(id) {
+
+//   if (!confirm("Are you sure you want to delete this list?")) return;
+
+//   let lists = window.ListStorage.getListsFromLocal();
+
+//   lists = lists.filter(list => list._id !== id);
+
+//   window.ListStorage.saveListsToLocal(lists);
+
+//   renderGuestLists();
+
+// }
+
+
+
+
 // ============List Management==============
+
+// Create New List
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("createForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", function(e){
+
+    if (window.APP_USER) return;
+
+    e.preventDefault();
+
+    const nameInput = document.getElementById("createName");
+    const name = nameInput.value.trim();
+
+    if (!name) return;
+
+    createGuestList(name);
+
+    nameInput.value = "";
+
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("addListModal")
+    );
+
+    modal?.hide();
+
+  });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const updateForm = document.getElementById("updateForm");
+
+  if (!updateForm) return;
+
+  updateForm.addEventListener("submit", function(e){
+
+    if (window.APP_USER) return;
+
+    e.preventDefault();
+
+    const id = document.getElementById("updateId").value;
+    const name = document.getElementById("updateName").value.trim();
+
+    if (!name) return;
+
+    updateGuestList(id, name);
+
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("editListModal")
+    );
+
+    modal?.hide();
+
+  });
+
+});
 // Show the Edit List modal and populate it with data
+
 function editList(id, name, description) {
   document.getElementById("updateId").value = id;
   document.getElementById("updateName").value = name;
   // document.getElementById("updateDescription").value = description;
   document.getElementById("updateForm").action = `/lists/update/${id}`;
-  const modal = new bootstrap.Modal(document.getElementById('editListModal'));
+  const modal = new bootstrap.Modal(document.getElementById('editListModal')
+);
   modal.show();
 }
 
@@ -94,26 +267,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const result = document.getElementById('result');
   const listIdInput = document.querySelector('#randomForm input[name="listId"]');
 
-  button.addEventListener('click', async () => {
-    const listId = listIdInput.value;
-    result.textContent = 'Picking...'; 
-
-    try {
-      const response = await fetch(`/items/api/random/${listId}`); 
-      const data = await response.json();
-
-      if (data.message) {
-        result.textContent = data.message; 
-      } else {
-        result.textContent = data.description
-          ? `${data.name}: ${data.description}`
-          : data.name;
+  if (button) {
+    button.addEventListener('click', async () => {
+      const listId = listIdInput.value;
+      result.textContent = 'Picking...'; 
+  
+      try {
+        const response = await fetch(`/items/api/random/${listId}`); 
+        const data = await response.json();
+  
+        if (data.message) {
+          result.textContent = data.message; 
+        } else {
+          result.textContent = data.description
+            ? `${data.name}: ${data.description}`
+            : data.name;
+        }
+      } catch (error) {
+        result.textContent = 'Error fetching random item';
+        console.error('Error fetching random item:', error);
       }
-    } catch (error) {
-      result.textContent = 'Error fetching random item';
-      console.error('Error fetching random item:', error);
-    }
-  });
+    });
+   }
 });
 
 
@@ -205,17 +380,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const numberResult = document.getElementById('result');
   const button = document.getElementById('pickNumber');
 
-  button.addEventListener('click', () => {
-    const max = parseInt(input.value, 10);
-
-    // Validate input
-    if (isNaN(max) || max < 1) {
-      result.textContent = 'Please enter a valid number (1 or greater).';
-      return;
-    }
-
-    // Pick and display random number
-    const randomNumber = Math.floor(Math.random() * max) + 1;
-    result.textContent = `Number Selected: ${randomNumber}`;
-  });
+  if (button) {
+    button.addEventListener('click', () => {
+      const max = parseInt(input.value, 10);
+  
+      // Validate input
+      if (isNaN(max) || max < 1) {
+        result.textContent = 'Please enter a valid number (1 or greater).';
+        return;
+      }
+  
+      // Pick and display random number
+      const randomNumber = Math.floor(Math.random() * max) + 1;
+      result.textContent = `Number Selected: ${randomNumber}`;
+    });
+  }
 });

@@ -8,6 +8,13 @@ router.get('/', listsController.getLists);
 // Create a new list
 router.post('/add', listsController.createList);
 
+// Guest list items page
+router.get('/guest/:id', (req, res) => {
+  res.render('guestItems', {
+    listId: req.params.id
+  });
+});
+
 // Show a single list by ID (with items)
 router.get('/:id', listsController.getListById);
 

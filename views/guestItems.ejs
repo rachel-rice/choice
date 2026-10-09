@@ -1,0 +1,168 @@
+<!-- Guest Random Pick -->
+<div class="container">
+
+  <h2 class="mb-4 text-center text-md-start">Pick One</h2>
+
+  <div class="row g-3">
+
+    <div class="text-center mb-5">
+      <h4 class="fw-light text-muted mb-4">Click to pick a random item</h4>
+    </div>
+
+    <div class="row mb-5 justify-content-center">
+      <div class="col-md-6 text-center">
+        <h3 id="listTitle" class="mb-3"></h3>
+        <button type="button" id="randomPickBtn" class="btn btn-outline-dark btn-standard">
+          <i class="bi bi-shuffle me-1"></i>Pick
+        </button>
+        <h2 id="randomResult" class="mt-2 text-primary">
+        <span id="randomName"></span>
+        </h2>
+        <p id="randomDescription"></p>
+      </div>
+    </div> 
+
+    <!-- Items -->
+    <div id="itemsContainer" class="row g-3">
+
+    <!-- Guest Add New Item Card -->
+  <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+    <div class="card add-card shadow-sm text-center d-flex align-items-center justify-content-center"
+         style="cursor: pointer;"
+         data-bs-toggle="modal"
+         data-bs-target="#addItemModal">
+      <div class="card-body d-flex flex-column align-items-center justify-content-center">
+        <div class="display-4 text-muted mb-2">⊕</div>
+        <h6 class="fw-bold mb-1">Add New Item</h6>
+        <small class="text-muted">Add an item to this list</small>
+      </div>
+    </div>
+  </div>
+
+
+  <template id="itemCardTemplate">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="card list-card shadow-sm">
+        <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h6 class="item-name mb-1 fw-bold"></h6>
+          <p class="item-description mb-0 text-muted"></p>
+        </div>
+
+        <div class="btn-group-sm d-flex gap-2" role="group">
+          <button type="button" class="edit-btn btn btn-outline-dark flex-fill">
+            <i class="bi bi-pencil me-1"></i>Edit
+          </button>
+          <button type="button" class="delete-btn btn btn-outline-danger flex-fill">
+            <i class="bi bi-trash me-1"></i>Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+</div>
+
+<div class="text-center mb-5">
+    <h4 class="fw-light text-muted my-4">Return to <a href="/lists">Lists</a></h4>
+</div>
+
+</div>
+</div>
+
+
+<!-- Guest Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="addItemForm">
+        <input type="hidden" name="list" value="">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="createName" class="form-label">Item Name</label>
+            <input type="text" name="name" id="itemName" class="form-control" placeholder="Item name" maxlength="40" required>
+          </div>
+          <div class="mb-3">
+            <label for="createDescription" class="form-label">Description</label>
+            <input type="text" name="description" id="itemDescription" class="form-control" placeholder="Item description" maxlength="20">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-outline-dark">Create Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Guest Edit Item Modal -->
+
+<div class="modal fade" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="editItemForm">
+
+    <div class="modal-header">
+      <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="mb-3">
+        <label for="editItemName" class="form-label">Item Name</label>
+        <input
+          type="text"
+          id="editItemName"
+          class="form-control"
+          placeholder="Item name"
+          maxlength="40"
+          required
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="editItemDescription" class="form-label">Description</label>
+        <input
+          type="text"
+          id="editItemDescription"
+          class="form-control"
+          placeholder="Item description"
+          maxlength="20"
+        >
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
+        Cancel
+      </button>
+
+      <button type="submit" class="btn btn-outline-dark">
+        Save Changes
+      </button>
+    </div>
+
+  </form>
+</div>
+</div>
+</div>
+
+<script>
+  window.GUEST_LIST_ID = "<%= listId %>";
+</script>
+
+<% if (user) { %>
+  <script src="/js/script.js"></script>
+<% } %>
+
+<script src="/js/guestItems.js"></script>
